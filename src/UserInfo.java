@@ -1,0 +1,52 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class UserInfo extends JoinMenberShip {
+	private String id;
+	private String password;
+	private String name;
+	private String phoneNumber;
+	private List<Custom> userCustom = new ArrayList<Custom>();
+
+	public List<Custom> getUserCustom() {
+		return userCustom;
+	}
+
+	public void setUserCustom(List<Custom> userCustom) {
+		this.userCustom = userCustom;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+}
