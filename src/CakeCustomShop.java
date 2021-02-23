@@ -1,80 +1,84 @@
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
 
 public class CakeCustomShop implements StoreOrderSystem{
-    private User nowUser = new User();
-    private List<User> orderUser = new ArrayList<User>();
+    private UserInfo nowUser = new UserInfo();
+    private List<UserInfo> orderUser = new ArrayList<UserInfo>();
     private long balance;
+    private int forcount;
     private Scanner scanner = new Scanner(System.in);
-    private Date date = new Date();
     
+    
+    /**
+     * @author ì•ˆìŠ¹ì£¼
+     */
     @Override
     public void order() {
-    	//ÁÖ¹®ÇÏ±â
-    	//»ç¿ëÀÚÀÇ userCustom Ã¤¿ì±â.
-    	
-    	//½ÃÆ®¼±ÅÃ
-    	System.out.println("½ÃÆ®¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä");
-    	int i = 0;
-    	for(Sheet sheet : CakeCustomProduct.getSheetList()) {
-    		System.out.println((++i)+". ½ÃÆ® ¸À: "+sheet.name+", ½ÃÆ® °¡°İ: "+sheet.price);
-    	}
-    	String userSheet = scanner.nextLine();
-    	
-    	//½ÃÆ® °´Ã¼°ª ³Ö¾îÁÖ±â
-    	for(Sheet sheet : CakeCustomProduct.getSheetList()) {
-    		if(sheet.name.equals(userSheet)) {
-    			Sheet realUserSheet = sheet;
-    			break;
-    		}
-    	}
-    	
-    	//»ıÅ©¸² ¼±ÅÃ
-    	System.out.println("»ıÅ©¸²À» ¼±ÅÃÇØÁÖ¼¼¿ä");
-    	i = 0;
-    	for(FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
-    		System.out.println((++i)+". »ıÅ©¸² ¸À:"+freshCream.name+", »ıÅ©¸² °¡°İ: "+freshCream.price);
-    	}
-    	String userFreshCream = scanner.nextLine();
-    	
-    	//»ıÅ©¸² °´Ã¼°ª ³Ö¾îÁÖ±â
-    	for(FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
-    		if(freshCream.name.equals(userFreshCream)) {
-    			FreshCream realUserFreshCream = freshCream;
-    			break;
-    		}
-    	}
-    	
-    	//ÅäÇÎ ¼±ÅÃ
-    	System.out.println("ÅäÇÎÀ» ¼±ÅÃÇØÁÖ¼¼¿ä");
-    	i=0;
-    	for(Topping topping : CakeCustomProduct.getToppingList()) {
-    		System.out.println((++i)+". ÅäÇÎ Á¾·ù: "+topping.name+" , ÅäÇÎ °¡°İ: "+topping.price);
-    	}
-    	String userTopping = scanner.nextLine();
-    	
-    	for(Topping topping : CakeCustomProduct.getToppingList()) {
-    		if(topping.name.equals(userTopping)) {
-    			Topping realTopping = topping;
-    			break;
-    		}
-    	}
-    	
-    	System.out.println("ÃÊ´Â ¸î°³µå¸±±î¿ä? »ıÀÏÀÚÀÇ ³ªÀÌ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
-    	int userCandle = scanner.nextInt();
-    	
-    	System.out.println("ÆøÁ×Àº ¸î°³µå¸±±î¿ä?");
-    	int userFireCracker = scanner.nextInt();
-    
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy³âMM¿ùddÀÏ");
-    	
+        Sheet choiceSheet = null;
+        FreshCream choicefreshcream = null;
+        Topping choiceTopping = null;
+        int choiceCandleNum = 0;
+        int priceSum = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyë…„ MMì›” ddì¼ HH:mm:ss");
+        Date date = new Date("yyë…„ MMì›” ddì¼ HH:mm:ss");
+        
+        System.out.println("ì‹œíŠ¸ë¥¼ ê³¨ë¼ì£¼ì„¸ìš”");
+        for(Sheet sheet : CakeCustomProduct.getSheetList()) {
+                System.out.println("["+ (++forcount) +"]ë²ˆ ì‹œíŠ¸ ì´ë¦„: " +sheet.name +
+                                   " ê°€ê²©: " + sheet.price +" ì›");
+        }
+        scanner.nextLine();
+        String userChoicestr = scanner.nextLine();
+        for(Sheet sheet : CakeCustomProduct.getSheetList()) {
+            if(userChoicestr.equals(sheet.name)) {
+                choiceSheet = sheet;
+                break;
+            }
+        }
+        forcount = 0;
+        System.out.println("ìƒí¬ë¦¼ë¥¼ ê³¨ë¼ì£¼ì„¸ìš”");
+        for(FreshCream freshcream : CakeCustomProduct.getFreshCreamList()) {
+                System.out.println("["+ ++forcount +"]ë²ˆ ì‹œíŠ¸ ì´ë¦„: " +freshcream.name +
+                                   " ê°€ê²©: " + freshcream.price +" ì›");
+        }
+        userChoicestr = scanner.nextLine();
+        for(FreshCream freshcream : CakeCustomProduct.getFreshCreamList()) {
+            if(userChoicestr.equals(freshcream.name)) {
+                choicefreshcream = freshcream;
+                break;
+            }
+        }
+        forcount = 0;
+        System.out.println("í† í•‘ì„ ê³¨ë¼ì£¼ì„¸ìš”");
+        for(Topping freshcream : CakeCustomProduct.getToppingList()) {
+                System.out.println("["+ ++forcount +"]ë²ˆ ì‹œíŠ¸ ì´ë¦„: " +freshcream.name +
+                                   " ê°€ê²©: " + freshcream.price +" ì›");
+        }
+        userChoicestr = scanner.nextLine();
+        for(Topping topping : CakeCustomProduct.getToppingList()) {
+            if(userChoicestr.equals(topping.name)) {
+                choiceTopping = topping;
+                break;
+            }
+        }
+        System.out.println("ì´ˆì˜ ê°¯ìˆ˜ë¥¼ ì •í•´ì£¼ì„¸ìš”");
+        int userChoiceint = scanner.nextInt();
+        choiceCandleNum = userChoiceint;
+        
+        priceSum = choicefreshcream.price + choiceSheet.price + choiceTopping.price;
+        
+        
+        
     }
     @Override
     public void reservationSerch() {
-    	//¿¹¾àÁ¤º¸ Ãâ·ÂÇÏ±â
-    	System.out.println(nowUser.getUserName()+"°í°´´ÔÀÇ ¿¹¾àÁ¤º¸ÀÔ´Ï´Ù.");
+        //ì˜ˆì•½ì •ë³´ ì¶œë ¥í•˜ê¸°
+        System.out.println(nowUser.getName()+"ê³ ê°ë‹˜ì˜ ì˜ˆì•½ì •ë³´ì…ë‹ˆë‹¤.");
         for(Custom userCustom : nowUser.getUserCustom()) {
-        	System.out.println(userCustom);
+            System.out.println(userCustom);
         }
     }
     
@@ -84,46 +88,45 @@ public class CakeCustomShop implements StoreOrderSystem{
     }
     @Override
     public void reservationDelete() {
-    	//¿¹¾àÁ¤º¸ Áö¿ì±â
-    	System.out.println("°í°´´ÔÀÇ ¿¹¾àÁ¤º¸¸¦ Áö¿ì°Ú½À´Ï´Ù..");
-    	for(Custom userCustom : nowUser.getUserCustom()) {
-    		System.out.println(userCustom);
-    		System.out.println("ÇØ´ç ¿¹¾àÁ¤º¸¸¦ Áö¿ì°Ú½À´Ï±î? 1. yes 2. no");
-    		int userChoice = scanner.nextInt();
-    		if(userChoice==1) {
-    			balance -= userCustom.getPriceSum();
-    			nowUser.getUserCustom().remove(userChoice);
-    	    	System.out.println("Áö¿ì±â¿Ï·á");
+        //ì˜ˆì•½ì •ë³´ ì§€ìš°ê¸°
+        System.out.println("ê³ ê°ë‹˜ì˜ ì˜ˆì•½ì •ë³´ë¥¼ ì§€ìš°ê² ìŠµë‹ˆë‹¤..");
+        for(Custom userCustom : nowUser.getUserCustom()) {
+            System.out.println(userCustom);
+            System.out.println("í•´ë‹¹ ì˜ˆì•½ì •ë³´ë¥¼ ì§€ìš°ê² ìŠµë‹ˆê¹Œ? 1. yes 2. no");
+            int userChoice = scanner.nextInt();
+            if(userChoice==1) {
+                balance -= userCustom.getPriceSum();
+                nowUser.getUserCustom().remove(userChoice);
+                System.out.println("ì§€ìš°ê¸°ì™„ë£Œ");
 
-    		} else {
-    			return;
-    		}
-    	}
-    	//¿¹¾àÁ¤º¸ µ¥ÀÌÅÍÀúÀå
-    	//orderUser¿¡¼­µµ »èÁ¦ÇÏ±â
-    	for(User user : orderUser) {
-    		if(user==nowUser) {
-    			orderUser.remove(user);
-    		}
-    	}
-    	
+            } else {
+                return;
+            }
+        }
+        //ì˜ˆì•½ì •ë³´ ë°ì´í„°ì €ì¥
+        //orderUserì—ì„œë„ ì‚­ì œí•˜ê¸°
+        for(UserInfo user : orderUser) {
+            if(user==nowUser) {
+                orderUser.remove(user);
+            }
+        }
+        
     }
     @Override
     public void pickUp() {
-    	//ÇÈ¾÷ÇÏ±â
-    	for(Custom userCustom : nowUser.getUserCustom()) {
-    		System.out.println(userCustom);
-    		System.out.println("ÇØ´ç ÄÉÀÌÅ©¸¦ ÇÈ¾÷ÇÏ½Ã°Ú½À´Ï±î? 1. yes 2. no");
-    		int userChoice = scanner.nextInt();
-    		if(userChoice == 1) {
-    			userCustom.setReservationStatus(true);
-    			System.out.println("ÇÈ¾÷¿Ï·áµÇ¾ú½À´Ï´Ù.");
-    		} else {
-    			System.out.println("ÇÈ¾÷Ãë¼ÒµÇ¾ú½À´Ï´Ù.");
-    			return;
-    		}
-    	}
+        //í”½ì—…í•˜ê¸°
+        for(Custom userCustom : nowUser.getUserCustom()) {
+            System.out.println(userCustom);
+            System.out.println("í•´ë‹¹ ì¼€ì´í¬ë¥¼ í”½ì—…í•˜ì‹œê² ìŠµë‹ˆê¹Œ? 1. yes 2. no");
+            int userChoice = scanner.nextInt();
+            if(userChoice == 1) {
+                userCustom.setReservationStatus(true);
+                System.out.println("í”½ì—…ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+            } else {
+                System.out.println("í”½ì—…ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+                return;
+            }
+        }
     }
-    
 
 }
