@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class CakeCustomShop implements StoreOrderSystem{
     private UserInfo nowUser = new UserInfo();
@@ -10,7 +11,7 @@ public class CakeCustomShop implements StoreOrderSystem{
     private long balance;
     private int forcount;
     private Scanner scanner = new Scanner(System.in);
-    
+    private Pattern datePattern = Pattern.compile(" /^(21|22)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;");
     
     /**
      * @author 안승주
@@ -22,8 +23,9 @@ public class CakeCustomShop implements StoreOrderSystem{
         Topping choiceTopping = null;
         int choiceCandleNum = 0;
         int priceSum = 0;
-        SimpleDateFormat sdf = new SimpleDateFormat("yy년 MM월 dd일 HH:mm:ss");
-        Date date = new Date("yy년 MM월 dd일 HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String buyDate = sdf.format(date);
         
         System.out.println("시트를 골라주세요");
         for(Sheet sheet : CakeCustomProduct.getSheetList()) {
@@ -70,8 +72,25 @@ public class CakeCustomShop implements StoreOrderSystem{
         
         priceSum = choicefreshcream.price + choiceSheet.price + choiceTopping.price;
         
-        
-        
+        System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
+        scanner.nextLine();
+        String pickUpDate = scanner.nextLine();
+        Date day1 = null;
+        Date day2 = null;
+        while(true) {
+            if(!datePattern.matcher(pickUpDate).matches()) {
+                System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
+                pickUpDate = scanner.nextLine();
+            }else {
+                break;
+            }
+        }
+        try {
+            day1 = sdf.parse(buyDate);
+            day2 = sdf.parse(pickUpDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public void reservationSerch() {
