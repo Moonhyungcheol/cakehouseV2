@@ -13,6 +13,9 @@ public class CakeCustomShop implements StoreOrderSystem{
     private Scanner scanner = new Scanner(System.in);
     private Pattern datePattern = Pattern.compile(" /^(21|22)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;");
     
+    
+    
+    
     /**
      * @author 안승주
      */
@@ -147,5 +150,41 @@ public class CakeCustomShop implements StoreOrderSystem{
             }
         }
     }
+    
+    public void start() {
+
+        UserInfo userinfo = new UserInfo();
+        
+        System.out.println("안녕하세요~ 케잌 하우스입니다.");
+        System.out.println("1. 회원가입 2. 로그인");
+        int userChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        do {
+            System.out.println("1. 회원가입 2. 로그인");
+            userChoice = scanner.nextInt();
+            scanner.nextLine();
+        } while (userChoice > 2 || userChoice < 1);
+
+        switch (userChoice) {
+        case 1:
+            nowUser = userinfo.userJoin();
+            break;
+
+        case 2:
+            String id = scanner.nextLine();
+            String password = scanner.nextLine();
+            nowUser = userinfo.userLogin(id, password);
+            break;
+
+        default:
+            break;
+        }
+        
+        orderUser.add(nowUser);
+
+    }
+    
+    
 
 }
