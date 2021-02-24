@@ -16,6 +16,17 @@ public class CakeCustomShop implements StoreOrderSystem {
 	private Date date = new Date();
 	private String buyDate = sdf.format(date);
 
+	public CakeCustomShop() {
+		// 관리자 등록
+		UserInfo managerInfo = new UserInfo();
+		managerInfo.setId("admin");
+		managerInfo.setPassword("admin");
+		
+		// 유저리스트에 추가
+		nowUser.addJoinUser(managerInfo);
+		orderUser.add(managerInfo);
+	}
+
 	/**
 	 * @author 안승주
 	 */
@@ -342,15 +353,6 @@ public class CakeCustomShop implements StoreOrderSystem {
 	 */
 	public void start() {
 
-		// 관리자 등록
-		UserInfo managerInfo = new UserInfo();
-		managerInfo.setId("admin");
-		managerInfo.setPassword("admin");
-
-		// 유저리스트에 추가
-		nowUser.addJoinUser(managerInfo);
-		orderUser.add(managerInfo);
-
 		System.out.println("어서오세요~ 비트케이크입니다.");
 		int userChoice = 0;
 
@@ -363,7 +365,8 @@ public class CakeCustomShop implements StoreOrderSystem {
 		switch (userChoice) {
 		case 1:
 			// 회원가입
-			nowUser = nowUser.userJoin();
+			nowUser.userJoin();
+			nowUser.addJoinUser(nowUser);
 			start();
 			return;
 
@@ -376,8 +379,10 @@ public class CakeCustomShop implements StoreOrderSystem {
 			nowUser = nowUser.userLogin(id, password);
 			break;
 		}
-
-		if (nowUser.getId().equals(managerInfo.getId())) { // 매니저회원과 아이디가 일치하면
+		
+		
+		
+		if (nowUser.getId().equals("admin")) { // 매니저회원과 아이디가 일치하면
 			// 매니저 메뉴를 보여준다.
 			managerMenu();
 		} else {
@@ -408,7 +413,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 		} while (userChoice < 1 || userChoice > 6);
 
 		while (true) {
-			
+
 			switch (userChoice) {
 			// 주문하기
 			case 1:
@@ -443,8 +448,8 @@ public class CakeCustomShop implements StoreOrderSystem {
 			default:
 				break;
 			}
-			
-		}// while end
+
+		} // while end
 
 	}
 
