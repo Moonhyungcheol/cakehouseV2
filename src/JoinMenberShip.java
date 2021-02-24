@@ -30,7 +30,19 @@ public class JoinMenberShip {
         return REG_EXP_PASSWORD.matcher(password).matches();
     }
 
-    /**
+    public List<UserInfo> getJoinUser() {
+		return joinUser;
+	}
+
+	public void setJoinUser(List<UserInfo> joinUser) {
+		this.joinUser = joinUser;
+	}
+	
+	public void addJoinUser(UserInfo userInfo) {
+		joinUser.add(userInfo);
+	}
+
+	/**
      * 
      * @param id
      * @param password
@@ -102,7 +114,6 @@ public class JoinMenberShip {
      */
     public UserInfo userLogin(String id, String password) {
 
-        UserInfo userinfo = new UserInfo();
         for (UserInfo user : joinUser) {
             if (user.getId().equals(id)) {
                 if (user.getPassword().equals(password)) {
@@ -111,8 +122,28 @@ public class JoinMenberShip {
             }
         }
 
+        int userChoice = 0;
+        
         System.out.println("아이디나 패스워드를 잘못 입력하셨습니다.");
+        
+        do {
+            System.out.println("[1] 다시 입력 [2] 초기화면");
+        	userChoice = scanner.nextInt();
+        	scanner.nextLine();
+        }while(userChoice > 2 || userChoice < 1 );
+        
+        switch (userChoice) {
+		case 1:
+			System.out.print("ID : ");
+			id = scanner.nextLine();
+			System.out.print("Password : ");
+			password = scanner.nextLine();
+			return userLogin(id, password);
 
+		default:
+			break;
+		}
+        
         return null;
     }
 
