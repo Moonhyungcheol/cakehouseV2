@@ -51,8 +51,6 @@ public class JoinMenberShip {
      */
     public UserInfo userJoin() {
 
-        UserInfo userinfo = new UserInfo();
-
         System.out.print("id : ");
         String id = scanner.nextLine();
 
@@ -94,14 +92,12 @@ public class JoinMenberShip {
             phoneNumber = scanner.nextLine();
         }
 
-        userinfo.setId(id);
-        userinfo.setPassword(password);
-        userinfo.setName(name);
-        userinfo.setPhoneNumber(phoneNumber);
+        
+        UserInfo userInfo = new UserInfo(id, password, name, phoneNumber);
+        
+        joinUser.add(userInfo);
 
-        joinUser.add(userinfo);
-
-        return userinfo;
+        return userInfo;
 
     }
 
