@@ -85,25 +85,22 @@ public class CakeCustomShop implements StoreOrderSystem {
         // 가격책청
         priceSum = choicefreshcream.price + choiceSheet.price + choiceTopping.price;
 
-        // 예약 날짜
-        
 
         // 픽업 날짜 정하고 유효성 검사 및 Date 타입 변환 작업
         System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
-        scanner.nextLine();
+        
         Date dayBuy = null;
         Date dayPickUp = null;
         int compare = 0;
         
-        String pickUpDate = scanner.nextLine();
         //pickUpDate 형식 검사
-        while(!datePattern.matcher(pickUpDate).matches()) {
-            System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
-            pickUpDate = scanner.nextLine();
-        }
-        
         while(true) {
-            pickUpDate = scanner.nextLine();
+            scanner.nextLine();
+            String pickUpDate = scanner.nextLine();
+            if(!datePattern.matcher(pickUpDate).matches()) {
+                System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
+                continue;
+            }
             try {
                 dayBuy = sdf.parse(buyDate);
                 dayPickUp = sdf.parse(pickUpDate);
@@ -114,45 +111,17 @@ public class CakeCustomShop implements StoreOrderSystem {
             compare = dayBuy.compareTo(dayPickUp);
             if (compare > 0) {
                 System.out.println("날짜가 올바르지 않습니다.");
+                continue;
+            }else {
+                break;
             }
-            break;
         }
         
-        //pickUpDate 유효성 검사 및 Date 타입 변환 작업
-        /*
-        try {
-            day1 = sdf.parse(buyDate);
-            day2 = sdf.parse(pickUpDate);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        compare = day1.compareTo(day2);
-        if (compare > 0) {
-            System.out.println("날짜가 올바르지 않습니다.");
-        }
+        //픽업 default 값 false
+        boolean ReservationStatus = false;
         
-        do {
-            if (!datePattern.matcher(pickUpDate).matches()) {
-                System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
-                pickUpDate = scanner.nextLine();
-            }
-            try {
-                day1 = sdf.parse(buyDate);
-                day2 = sdf.parse(pickUpDate);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            compare = day1.compareTo(day2);
-            if (compare > 0) {
-                System.out.println("날짜가 올바르지 않습니다.");
-            }
-        } while (!datePattern.matcher(pickUpDate).matches() || compare > 0);
-        */
-
-        
-        boolean pickUpStatus = false;
         nowUser.getUserCustom().add(new Custom(choiceSheet, choicefreshcream, choiceTopping, choiceCandleNum,
-                fireCracker, priceSum, dayBuy, pickUpStatus, dayPickUp));
+                fireCracker, priceSum, dayBuy, ReservationStatus, dayPickUp));
     }
 
     @Override
@@ -182,6 +151,8 @@ public class CakeCustomShop implements StoreOrderSystem {
                     switch (userChoiceNum) {
 
                     case 1:
+                        
+                        //시트 변경
                         forcount = 0;
                         Sheet changesheet = null;
                         System.out.println("변경할 시트를 골라주세요");
@@ -204,9 +175,11 @@ public class CakeCustomShop implements StoreOrderSystem {
                         break;
 
                     case 2:
+                        
+                        //생크림 변경
                         forcount = 0;
                         FreshCream changeFreshCream = null;
-                        System.out.println("변경할 시트를 골라주세요");
+                        System.out.println("변경할 생크림를 골라주세요");
                         for (FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
                             System.out.println(
                                     "[" + (++forcount) + "]번 시트 이름: " + freshCream.name + " 가격: " + freshCream.price + " 원");
@@ -224,9 +197,11 @@ public class CakeCustomShop implements StoreOrderSystem {
                         break;
 
                     case 3:
+                        
+                        //토핑 변경
                         forcount = 0;
                         Topping changeTopping = null;
-                        System.out.println("변경할 시트를 골라주세요");
+                        System.out.println("변경할 토핑를 골라주세요");
                         for (Topping topping : CakeCustomProduct.getToppingList()) {
                             System.out.println(
                                     "[" + (++forcount) + "]번 시트 이름: " + topping.name + " 가격: " + topping.price + " 원");
@@ -244,6 +219,8 @@ public class CakeCustomShop implements StoreOrderSystem {
 
                         break;
                     case 4:
+                        //초 갯수 변경
+                        
                         int userChoiceint = 0;
                         System.out.println("초의 갯수를 정해주세요");
                         userChoiceint = scanner.nextInt();
@@ -252,6 +229,8 @@ public class CakeCustomShop implements StoreOrderSystem {
                         break;
 
                     case 5:
+                        
+                        //폭죽 갯수 변경
                         userChoiceint = 0;
                         System.out.println("폭죽의 갯수를 정해주세요");
                         userChoiceint = scanner.nextInt();
@@ -260,37 +239,43 @@ public class CakeCustomShop implements StoreOrderSystem {
                         break;
 
                     case 6:
+                        
+                        //픽업 날짜 변경
                         System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
                         scanner.nextLine();
                         Date dayBuy = null;
                         Date dayPickUp = null;
                         int compare = 0;
                         
-                        String pickUpDate = scanner.nextLine();
-                        //pickUpDate 형식 검사
-                        while(!datePattern.matcher(pickUpDate).matches()) {
-                            System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
-                            pickUpDate = scanner.nextLine();
-                        }
+                        
+                        //pickUpDate 형식 검사 및 Date타입으로 형변환
                         while(true) {
+                            scanner.nextLine();
+                            String pickUpDate = scanner.nextLine();
+                            if(!datePattern.matcher(pickUpDate).matches()) {
+                                System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
+                                continue;
+                            }
                             try {
                                 dayBuy = sdf.parse(buyDate);
                                 dayPickUp = sdf.parse(pickUpDate);
                             } catch (Exception e) {
                                 e.printStackTrace();
+                                scanner = new Scanner(System.in);
                             }
                             compare = dayBuy.compareTo(dayPickUp);
                             if (compare > 0) {
                                 System.out.println("날짜가 올바르지 않습니다.");
+                                continue;
+                            }else {
+                                break;
                             }
-                            break;
                         }
-                        
                         changeCustom.setPickupDate(dayPickUp);
                        
                             
-                        
                         break;
+                        
                     case 7: 
                         System.out.println("종료합니다");
                         return;
@@ -300,7 +285,7 @@ public class CakeCustomShop implements StoreOrderSystem {
                     }
 
                 } else {
-                    break;
+                    return;
                 }
                 return;
             }
