@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 public class CakeCustomShop implements StoreOrderSystem {
 	private UserInfo nowUser = new UserInfo();
 	private List<UserInfo> orderUser = new ArrayList<UserInfo>();
+	
+	JoinMenberShip joinmembership = new JoinMenberShip();
+	
 	private long balance;
 	private int forcount;
 	private Scanner scanner = new Scanner(System.in);
@@ -21,10 +24,9 @@ public class CakeCustomShop implements StoreOrderSystem {
 		UserInfo managerInfo = new UserInfo();
 		managerInfo.setId("admin");
 		managerInfo.setPassword("admin");
-		
+
 		// 유저리스트에 추가
-		nowUser.addJoinUser(managerInfo);
-		orderUser.add(managerInfo);
+		joinmembership.addJoinUser(managerInfo);
 	}
 
 	/**
@@ -365,8 +367,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 		switch (userChoice) {
 		case 1:
 			// 회원가입
-			nowUser.userJoin();
-			nowUser.addJoinUser(nowUser);
+			joinmembership.userJoin();
 			start();
 			return;
 
@@ -376,12 +377,10 @@ public class CakeCustomShop implements StoreOrderSystem {
 			String id = scanner.nextLine();
 			System.out.print("password : ");
 			String password = scanner.nextLine();
-			nowUser = nowUser.userLogin(id, password);
+			nowUser = joinmembership.userLogin(id, password);
 			break;
 		}
-		
-		
-		
+
 		if (nowUser.getId().equals("admin")) { // 매니저회원과 아이디가 일치하면
 			// 매니저 메뉴를 보여준다.
 			managerMenu();
