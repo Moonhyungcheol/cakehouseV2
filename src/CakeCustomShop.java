@@ -80,35 +80,20 @@ public class CakeCustomShop implements StoreOrderSystem {
         --choicefreshcream.count;
 
         // 토핑 만들기
-        loop_1: do {
-            forcount = 0;
-            System.out.println("토핑을 골라주세요");
+        forcount = 0;
+        System.out.println("토핑을 골라주세요");
+        for (Topping topping : CakeCustomProduct.getToppingList()) {
+            System.out.println("[" + ++forcount + "]번 시트 이름: " + topping.name + " 가격: " + topping.price + " 원");
+        }
+        userChoice = Integer.parseInt(scanner.nextLine());
 
-            for (Topping topping : CakeCustomProduct.getToppingList()) {
-                System.out.println("[" + ++forcount + "]번 시트 이름: " + topping.name + " 가격: " + topping.price + " 원");
-            }
-
+        while (userChoice < 1 || userChoice > CakeCustomProduct.getToppingList().size()) {
+            System.out.println("토핑을 제대로 골라주세요");
             userChoice = Integer.parseInt(scanner.nextLine());
+        }
 
-            while (userChoice < 1 || userChoice > CakeCustomProduct.getToppingList().size()) {
-                System.out.println("토핑을 제대로 골라주세요");
-                userChoice = Integer.parseInt(scanner.nextLine());
-            }
-
-            choiceTopping = CakeCustomProduct.getToppingList().get(userChoice - 1);
-            --choiceTopping.count;
-
-            System.out.println("하나 더 고르시겠습니까? [1] yes [2] no");
-            userChoice = Integer.parseInt(scanner.nextLine());
-
-            switch (userChoice) {
-            case 1:
-                continue loop_1;
-            case 2:
-                break loop_1;
-            }
-
-        } while (true);
+        choiceTopping = CakeCustomProduct.getToppingList().get(userChoice - 1);
+        --choiceTopping.count;
 
         // 초 갯수 정하기
         System.out.println("초의 갯수를 정해주세요");
@@ -289,7 +274,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 
                             userChoice = Integer.parseInt(scanner.nextLine());
                             userCustom.getTopping().count++;
-                            while (userChoice > 1 || userChoice < CakeCustomProduct.getToppingList().size()) {
+                            while (userChoice < 1 || userChoice > CakeCustomProduct.getToppingList().size()) {
                                 System.out.println("제대로 골라주세요");
                                 userChoice = Integer.parseInt(scanner.nextLine());
                             }
