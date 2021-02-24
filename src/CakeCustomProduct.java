@@ -53,35 +53,51 @@ public class CakeCustomProduct {
     	}
     }
     
+
     // 품목 제거
-    public void productDel(String product, String name) {
-    
+    public static void productDel(String product, String name) {
+    	int count=0;
     	switch (product){
 		case "Sheet": 
 			for(Sheet sheet : sheetList) {
 				if(sheet.name.equals(name)) {
 					sheetList.remove(sheet);
+					count++;
 				}
 			}
-			System.out.println(name+" 제거완료");
+			if(count==0) {
+				countCheck(name);
+			}else {
+				System.out.println(name+" 제거완료");
+			}
 			break;
 			
 		case "FreshCream":
 			for(FreshCream freshCream : freshCreamList) {
 				if(freshCream.name.equals(name)) {
 					freshCreamList.remove(freshCream);
+					count++;
 				} 
 			}
-			System.out.println(name+" 제거완료");
+			if(count==0) {
+				countCheck(name);
+			}else {
+				System.out.println(name+" 제거완료");
+			}
 			break;
 			
 		case "Topping":
 			for(Topping topping : toppingList) {
 				if(topping.name.equals(name)) {
 					toppingList.remove(topping);
+					count++;
 				} 
 			}
-			System.out.println(name+" 제거완료");
+			if(count==0) {
+				countCheck(name);
+			}else {
+				System.out.println(name+" 제거완료");
+			}
 			break;
 			
 		default:
@@ -90,6 +106,12 @@ public class CakeCustomProduct {
 			break;
     	}
     }
+    
+    public static void countCheck(String str) {
+		System.out.println("해당 제품명은 존재하지 않습니다.");
+		System.out.println("확인 후 다시 이용해주세요.");
+		System.out.println("입력하신 제품명: "+str);
+}
 
 	public static List<Sheet> getSheetList() {
 		return sheetList;

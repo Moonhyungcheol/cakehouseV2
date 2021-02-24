@@ -346,6 +346,180 @@ public class CakeCustomShop implements StoreOrderSystem {
 			}
 		}
 	}
+	
+
+	/**
+	 * 제품추가
+	 * 
+	 * @author 조하선
+	 */
+    public void addProduct() {
+    	System.out.println("=== 제품등록 ===");
+    	while(true) {
+    		System.out.println("추가할 상품 분류를 선택해주세요. ");
+        	System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
+        	int userChoice = scanner.nextInt();
+        	switch (userChoice) {
+			case 1:
+				System.out.println("시트 제품을 추가합니다.");
+				System.out.println("추가할 시트의 이름을 입력해주세요: ");
+				String productName = scanner.nextLine();
+				for(Sheet sheet : CakeCustomProduct.getSheetList()) {
+					if(productName.equals(sheet.name)) {
+						System.out.println("이미 추가되어있는 상품입니다.");
+						System.out.println("초기 메뉴로 돌아갑니다.");
+						break;
+					}
+				}
+				System.out.println("추가할 시트의 가격을 입력해주세요: ");
+				int productPrice = scanner.nextInt();
+				System.out.println("추가할 시트의 초기 재고를 입력해주세요: ");
+				int productCount = scanner.nextInt();
+				CakeCustomProduct.productAdd("Sheet", productName, productPrice, productCount);
+				break;
+			case 2:
+				System.out.println("생크림 제품을 추가합니다.");
+				System.out.println("추가할 생크림의 이름을 입력해주세요: ");
+				productName = scanner.nextLine();
+				for(FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
+					if(productName.equals(freshCream.name)) {
+						System.out.println("이미 추가되어있는 상품입니다.");
+						System.out.println("초기 메뉴로 돌아갑니다.");
+						break;
+					}
+				}
+				System.out.println("추가할 생크림의 가격을 입력해주세요: ");
+				productPrice = scanner.nextInt();
+				System.out.println("추가할 생크림의 초기 재고를 입력해주세요: ");
+				productCount = scanner.nextInt();
+				CakeCustomProduct.productAdd("FreshCream", productName, productPrice, productCount);
+				break;
+			case 3:
+				System.out.println("토핑 제품을 추가합니다.");
+				System.out.println("추가할 토핑의 이름을 입력해주세요: ");
+				productName = scanner.nextLine();
+				for(Topping topping : CakeCustomProduct.getToppingList()) {
+					if(productName.equals(topping.name)) {
+						System.out.println("이미 추가되어있는 상품입니다.");
+						System.out.println("초기 메뉴로 돌아갑니다.");
+						break;
+					}
+				}
+				System.out.println("추가할 토핑의 가격을 입력해주세요: ");
+				productPrice = scanner.nextInt();
+				System.out.println("추가할 토핑의 초기 재고를 입력해주세요: ");
+				productCount = scanner.nextInt();
+				CakeCustomProduct.productAdd("Topping", productName, productPrice, productCount);
+				break;
+			case 4:
+				System.out.println("제품추가를 종료합니다.");
+				productListPrint();
+				return;
+			default:
+				System.out.println("올바른 입력값이 아닙니다.");
+			}
+    	}
+    }
+    
+	/**
+	 * 제품삭제
+	 * 
+	 * @author 조하선
+	 */
+    public void deleteProduct() {
+    	System.out.println("=== 제품삭제 ===");
+		System.out.println("== 현재 등록된 상품 목록 ==");
+		productListPrint();
+    	while(true) {
+        	int count=0;
+    		System.out.println("삭제할 상품 분류를 선택해주세요.");
+    		System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
+    		int userChoice = scanner.nextInt();
+    		switch (userChoice) {
+			case 1:
+				System.out.println("삭제할 시트명을 입력해주세요.");
+				String deleteProductName = scanner.nextLine();
+				CakeCustomProduct.productDel("Sheet", deleteProductName);
+				break;
+			case 2:
+				System.out.println("삭제할 생크림명을 입력해주세요.");
+				deleteProductName = scanner.nextLine();
+				CakeCustomProduct.productDel("FreshCream", deleteProductName);
+				break;
+				
+			case 3:
+				System.out.println("삭제할 토핑명을 입력해주세요.");
+				deleteProductName = scanner.nextLine();
+				CakeCustomProduct.productDel("Topping", deleteProductName);
+				break;
+			case 4:
+				System.out.println("제품 삭제를 종료합니다.");
+				productListPrint();
+				return;
+			default:
+				System.out.println("올바른 입력값이 아닙니다.");
+				break;
+			}
+    	}
+    	
+    	
+    }
+    
+	/**
+	 * 재고관리
+	 * 
+	 * @author 조하선
+	 */
+    public void productListPrint() {
+    	System.out.println("==== BITCAKE CUSTOM MENU ====");
+		System.out.println("<< SHEET CUSTOM MENU >>");
+		for(Sheet sheet : CakeCustomProduct.getSheetList()) {
+			System.out.println(sheet);
+		}
+		System.out.println("<< FRESH CUSTOM MENU >>");
+		for(FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
+			System.out.println(freshCream);
+		}
+		System.out.println("<< TOPPING CUSTOM MENU >>");
+		for(Topping topping : CakeCustomProduct.getToppingList()) {
+			System.out.println(topping);
+		}
+    }
+    
+	/**
+	 * 재고변경
+	 * 
+	 * @author 조하선
+	 */
+    public void changeStock() {
+    	System.out.println("==재고변경==");
+    	System.out.println("현재 재고 현황입니다.");
+    	productListPrint();
+    	while(true) {
+    		System.out.println("변경할 상품의 분류를 선택해주세요: ");
+    		System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
+    		int userChoice = scanner.nextInt();
+    		switch (userChoice) {
+			case 1:
+				System.out.println("변경을 원하는 시트제품명을 입력해주세요: ");
+				
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
+				break;
+			case 4:
+				
+				break;
+			default:
+				break;
+			}
+    	}
+    }
+    
+    //판매상태
 
 	/**
 	 * 
