@@ -156,7 +156,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 		nowUser.getUserCustom().add(new Custom(choiceSheet, choicefreshcream, choiceTopping, choiceCandleNum,
 				fireCracker, priceSum, dayBuy, ReservationStatus, dayPickUp));
 		orderUser.add(nowUser);
-		
+
 	}
 
 	@Override
@@ -594,13 +594,18 @@ public class CakeCustomShop implements StoreOrderSystem {
 			String password = scanner.nextLine();
 			nowUser = joinmembership.userLogin(id, password);
 			break;
-			
+
 		case 3:
 			// 불러오기
 			Utils util = new Utils();
 			List<Sheet> sheetlist = util.load("SheetList.txt");
 			List<FreshCream> freshlist = util.load("FreshCreamList.txt");
 			List<Topping> toppinglist = util.load("ToppingList.txt");
+
+			CakeCustomProduct.setSheetList(sheetlist);
+			CakeCustomProduct.setFreshCreamList(freshlist);
+			CakeCustomProduct.setToppingList(toppinglist);
+
 			break;
 		}
 
@@ -612,7 +617,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 		if (nowUser != null && nowUser.getId().equals("admin")) { // 매니저회원과 아이디가 일치하면
 			// 매니저 메뉴를 보여준다.
 			managerMenu();
-		} else if(nowUser != null){
+		} else if (nowUser != null) {
 			// 일반 유저 메뉴를 보여준다.
 			orderUser.add(nowUser);
 			userMenu();
@@ -662,7 +667,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 				continue loop_1;
 
 			case 5:
-				
+
 				break;
 			case 6:
 				start();
@@ -725,8 +730,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 		} // while end
 
 	}
-	
-	
+
 	/**
 	 * 
 	 * 관리자가 확인하는 판매 품목

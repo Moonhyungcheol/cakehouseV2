@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Product {
+public class Product implements Serializable{
     protected String name;
     protected int price;
     protected int count;

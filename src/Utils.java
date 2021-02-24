@@ -19,26 +19,25 @@ public class Utils {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
 
 	}
 
-	@SuppressWarnings("unchecked")
 	public <T> List<T> load(String filename) {
 
-		Object list = new ArrayList<T>();
+		List<T> list = null;
 
 		try (FileInputStream fis = new FileInputStream(filename);
 				BufferedInputStream bis = new BufferedInputStream(fis);
 				ObjectInputStream in = new ObjectInputStream(bis)) {
-
-			list = (List<T>)in.readObject();
-
+			
+			list = (ArrayList<T>) in.readObject();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return (ArrayList<T>) list;
+		return list;
 	}
 
 }
