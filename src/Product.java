@@ -3,6 +3,9 @@ public class Product {
     protected String name;
     protected int price;
     protected int count;
+    
+    public Product() {}
+    
     public Product(String name, int price, int count) {
         
         this.name = name;

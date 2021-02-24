@@ -1,7 +1,13 @@
+import java.io.Serializable;
 
-public class FreshCream extends Product {
+public class FreshCream extends Product implements Serializable {
 
-    public FreshCream(String name, int price, int count) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1945283063818035476L;
+
+	public FreshCream(String name, int price, int count) {
         super(name, price, count);
         // TODO Auto-generated constructor stub
     }
