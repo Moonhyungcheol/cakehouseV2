@@ -1,9 +1,10 @@
 import java.util.Date;
+import java.util.List;
 
 public class Custom {
 	private Sheet sheet;
 	private FreshCream freshcream;
-	private Topping topping;
+	private List<Topping> topping;
 	private int candle;
 	private int fireCracker;
 	private int priceSum;
@@ -11,7 +12,7 @@ public class Custom {
 	private boolean reservationStatus;
 	private Date pickupDate;
 
-	public Custom(Sheet sheet, FreshCream freshcream, Topping topping, int candle, int fireCracker, int priceSum,
+	public Custom(Sheet sheet, FreshCream freshcream, List<Topping> topping, int candle, int fireCracker, int priceSum,
 			Date reservationDate, boolean reservationStatus, Date pickupDate) {
 		super();
 		this.sheet = sheet;
@@ -33,7 +34,7 @@ public class Custom {
 		return freshcream;
 	}
 
-	public Topping getTopping() {
+	public List<Topping> getTopping() {
 		return topping;
 	}
 
@@ -69,7 +70,7 @@ public class Custom {
 		this.freshcream = freshcream;
 	}
 
-	public void setTopping(Topping topping) {
+	public void setTopping(List<Topping> topping) {
 		this.topping = topping;
 	}
 

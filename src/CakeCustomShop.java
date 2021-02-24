@@ -12,9 +12,7 @@ import java.util.regex.Pattern;
 public class CakeCustomShop implements StoreOrderSystem {
     private UserInfo nowUser = new UserInfo();
     private List<UserInfo> orderUser = new ArrayList<UserInfo>();
-
     JoinMenberShip joinmembership = new JoinMenberShip();
-
     private long balance;
     private int forcount;
     private Scanner scanner = new Scanner(System.in); //
@@ -40,7 +38,7 @@ public class CakeCustomShop implements StoreOrderSystem {
     public void order() {
         Sheet choiceSheet = null;
         FreshCream choicefreshcream = null;
-        Topping choiceTopping = null;
+        List<Topping> choiceTopping = new ArrayList<Topping>();
         int choiceCandleNum = 0;
         int fireCracker = 0;
         int priceSum = 0;
@@ -89,23 +87,37 @@ public class CakeCustomShop implements StoreOrderSystem {
         --choicefreshcream.count;
 
         // 토핑 만들기
-        forcount = 0;
-        System.out.println("토핑을 골라주세요");
-
-        for (Topping freshcream : CakeCustomProduct.getToppingList()) {
-            System.out.println("[" + ++forcount + "]번 시트 이름: " + freshcream.name + " 가격: " + freshcream.price + " 원");
-        }
-
-        userChoice = Integer.parseInt(scanner.nextLine());
-
-        while (userChoice < 1 || userChoice > CakeCustomProduct.getToppingList().size()) {
-            System.out.println("토핑을 제대로 골라주세요");
+        loop_1 : do {
+            forcount = 0;
+            System.out.println("토핑을 골라주세요");    
+            
+            for (Topping topping : CakeCustomProduct.getToppingList()) {
+                System.out.println("[" + ++forcount + "]번 시트 이름: " + topping.name + " 가격: " + topping.price + " 원");
+            }
+            
             userChoice = Integer.parseInt(scanner.nextLine());
-        }
 
-        choiceTopping = CakeCustomProduct.getToppingList().get(userChoice - 1);
-        --choiceTopping.count;
-
+            while (userChoice < 1 || userChoice > CakeCustomProduct.getToppingList().size()) {
+                System.out.println("토핑을 제대로 골라주세요");
+                userChoice = Integer.parseInt(scanner.nextLine());
+            }
+            
+            choiceTopping.add(CakeCustomProduct.getToppingList().get(userChoice - 1));
+            --CakeCustomProduct.getToppingList().get(userChoice - 1).count;
+            
+            System.out.println("하나 더 고르시겠습니까? [1] yes [2] no");
+            userChoice = Integer.parseInt(scanner.nextLine());
+            
+            switch (userChoice) {
+            case 1:
+                continue loop_1;
+            case 2:
+                break loop_1;
+            }
+            
+        }while(true);
+        
+        
         // 초 갯수 정하기
         System.out.println("초의 갯수를 정해주세요");
         int userChoiceint = Integer.parseInt(scanner.nextLine());
@@ -115,9 +127,15 @@ public class CakeCustomShop implements StoreOrderSystem {
         System.out.println("폭죽의 갯수를 정해주세요");
         userChoiceint = Integer.parseInt(scanner.nextLine());
         fireCracker = userChoiceint;
-
+        
+        
+        int toppingSum = 0;
+        for(Topping i : choiceTopping) {
+            toppingSum += i.price;
+        }
+        
         // 가격책청
-        priceSum = choicefreshcream.price + choiceSheet.price + choiceTopping.price;
+        priceSum = choicefreshcream.price + choiceSheet.price + toppingSum;
 
         // 픽업 날짜 정하고 유효성 검사 및 Date 타입 변환 작업
         System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
@@ -284,14 +302,17 @@ public class CakeCustomShop implements StoreOrderSystem {
 //                            }
 
                             userChoice = Integer.parseInt(scanner.nextLine());
-                            userCustom.getTopping().count++;
+                            
+                            
+                            
+                            //userCustom.getTopping().count++;
                             while (userChoice > 1 || userChoice < CakeCustomProduct.getToppingList().size()) {
                                 System.out.println("제대로 골라주세요");
                                 userChoice = Integer.parseInt(scanner.nextLine());
                             }
                             changeTopping = CakeCustomProduct.getToppingList().get(userChoiceNum - 1);
                             changeTopping.count--;
-                            userCustom.setTopping(changeTopping);
+                            //userCustom.setTopping(changeTopping);
 
                             // continue Loop_1;
                             break;
