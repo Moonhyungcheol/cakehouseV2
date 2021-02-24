@@ -369,6 +369,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 			System.out.println("추가할 상품 분류를 선택해주세요. ");
 			System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
 			int userChoice = scanner.nextInt();
+			scanner.nextLine();
 			switch (userChoice) {
 			case 1:
 				System.out.println("시트 제품을 추가합니다.");
@@ -445,6 +446,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 			System.out.println("삭제할 상품 분류를 선택해주세요.");
 			System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
 			int userChoice = scanner.nextInt();
+			scanner.nextLine();
 			switch (userChoice) {
 			case 1:
 				System.out.println("삭제할 시트명을 입력해주세요.");
