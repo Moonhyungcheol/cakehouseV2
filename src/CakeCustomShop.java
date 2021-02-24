@@ -112,7 +112,7 @@ public class CakeCustomShop implements StoreOrderSystem {
             case 1:
                 continue loop_1;
             case 2:
-                break EXIT;
+                break loop_1;
             }
             
         }while(true);
