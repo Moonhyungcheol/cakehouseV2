@@ -12,7 +12,7 @@ public class CakeCustomProduct {
      * 
      * @param Á¶ÇÏ¼±
      */
-    public void productAdd(String product, String name, int price, int count) { 
+    public static void productAdd(String product, String name, int price, int count) { 
     	
     	switch (product){
     		case "Sheet": 
