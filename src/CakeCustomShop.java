@@ -13,9 +13,9 @@ public class CakeCustomShop implements StoreOrderSystem {
 
 	private long balance;
 	private int forcount;
-	private Scanner scanner = new Scanner(System.in);
-	private Pattern datePattern = Pattern.compile(" /^(21|22)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;");
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	private Scanner scanner = new Scanner(System.in); //
+	private Pattern datePattern = Pattern.compile(" /^(21|22)\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;");
+	private SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 	private Date date = new Date();
 	private String buyDate = sdf.format(date);
 
@@ -46,7 +46,7 @@ public class CakeCustomShop implements StoreOrderSystem {
         for (Sheet sheet : CakeCustomProduct.getSheetList()) {
             System.out.println("[" + (++forcount) + "]번 시트 이름: " + sheet.name + " 가격: " + sheet.price + " 원");
         }
-        scanner.nextLine();
+        
         String userChoicestr = scanner.nextLine();
         for (Sheet sheet : CakeCustomProduct.getSheetList()) {
             if (userChoicestr.equals(sheet.name)) {
@@ -98,6 +98,7 @@ public class CakeCustomShop implements StoreOrderSystem {
         // 폭죽 갯수 정하기
         System.out.println("폭죽의 갯수를 정해주세요");
         userChoiceint = scanner.nextInt();
+        scanner.nextLine();
         fireCracker = userChoiceint;
 
         // 가격책청
@@ -112,7 +113,6 @@ public class CakeCustomShop implements StoreOrderSystem {
 
         // pickUpDate 형식 검사
         while (true) {
-            scanner.nextLine();
             String pickUpDate = scanner.nextLine();
             if (!datePattern.matcher(pickUpDate).matches()) {
                 System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
@@ -161,7 +161,10 @@ public class CakeCustomShop implements StoreOrderSystem {
             for (Custom userCustom : nowUser.getUserCustom()) {
                 System.out.println(userCustom);
                 System.out.println("해당 케이크주문을 변경하시겠습니까?1. 예 2. 아니요");
+                
                 int userChoice = scanner.nextInt();
+                scanner.nextLine();
+                
                 if (userChoice == 1) {
                     
                     Custom changeCustom = userCustom;
@@ -179,7 +182,8 @@ public class CakeCustomShop implements StoreOrderSystem {
                             System.out.println(
                                     "[" + (++forcount) + "]번 시트 이름: " + sheet.name + " 가격: " + sheet.price + " 원");
                         }
-                        scanner.nextLine();
+                        
+                        
                         String userChoicestr = scanner.nextLine();
                         
                         //다시추가
@@ -205,7 +209,6 @@ public class CakeCustomShop implements StoreOrderSystem {
                             System.out.println("[" + (++forcount) + "]번 시트 이름: " + freshCream.name + " 가격: "
                                     + freshCream.price + " 원");
                         }
-                        scanner.nextLine();
                         userChoicestr = scanner.nextLine();
                         userCustom.getFreshcream().count++;
                         for (FreshCream FreshCream : CakeCustomProduct.getFreshCreamList()) {
@@ -229,7 +232,6 @@ public class CakeCustomShop implements StoreOrderSystem {
                             System.out.println(
                                     "[" + (++forcount) + "]번 시트 이름: " + topping.name + " 가격: " + topping.price + " 원");
                         }
-                        scanner.nextLine();
                         userChoicestr = scanner.nextLine();
                         userCustom.getTopping().count++;
                         for (Topping topping : CakeCustomProduct.getToppingList()) {
@@ -273,7 +275,6 @@ public class CakeCustomShop implements StoreOrderSystem {
 
                         // pickUpDate 형식 검사 및 Date타입으로 형변환
                         while (true) {
-                            scanner.nextLine();
                             String pickUpDate = scanner.nextLine();
                             if (!datePattern.matcher(pickUpDate).matches()) {
                                 System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
@@ -370,7 +371,9 @@ public class CakeCustomShop implements StoreOrderSystem {
 			System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
 			int userChoice = scanner.nextInt();
 			scanner.nextLine();
+			
 			switch (userChoice) {
+			
 			case 1:
 				System.out.println("시트 제품을 추가합니다.");
 				System.out.println("추가할 시트의 이름을 입력해주세요: ");
@@ -379,7 +382,8 @@ public class CakeCustomShop implements StoreOrderSystem {
 					if (productName.equals(sheet.name)) {
 						System.out.println("이미 추가되어있는 상품입니다.");
 						System.out.println("초기 메뉴로 돌아갑니다.");
-						break;
+						addProduct();
+						return;
 					}
 				}
 				System.out.println("추가할 시트의 가격을 입력해주세요: ");
@@ -388,6 +392,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 				int productCount = scanner.nextInt();
 				CakeCustomProduct.productAdd("Sheet", productName, productPrice, productCount);
 				break;
+				
 			case 2:
 				System.out.println("생크림 제품을 추가합니다.");
 				System.out.println("추가할 생크림의 이름을 입력해주세요: ");
@@ -396,7 +401,8 @@ public class CakeCustomShop implements StoreOrderSystem {
 					if (productName.equals(freshCream.name)) {
 						System.out.println("이미 추가되어있는 상품입니다.");
 						System.out.println("초기 메뉴로 돌아갑니다.");
-						break;
+						addProduct();
+						return;
 					}
 				}
 				System.out.println("추가할 생크림의 가격을 입력해주세요: ");
@@ -413,7 +419,8 @@ public class CakeCustomShop implements StoreOrderSystem {
 					if (productName.equals(topping.name)) {
 						System.out.println("이미 추가되어있는 상품입니다.");
 						System.out.println("초기 메뉴로 돌아갑니다.");
-						break;
+						addProduct();
+						return;
 					}
 				}
 				System.out.println("추가할 토핑의 가격을 입력해주세요: ");
@@ -426,8 +433,10 @@ public class CakeCustomShop implements StoreOrderSystem {
 				System.out.println("제품추가를 종료합니다.");
 				productListPrint();
 				return;
+				
 			default:
 				System.out.println("올바른 입력값이 아닙니다.");
+				
 			}
 		}
 	}
@@ -584,11 +593,17 @@ public class CakeCustomShop implements StoreOrderSystem {
 	 */
 	public void managerMenu() {
 		int userChoice = 0;
-		do {
-			System.out.println("[1] 상품추가 [2] 상품삭제 [3] 재고관리 [4] 재고변경 [5] 판매상태");
-		} while (userChoice < 1 || userChoice > 5);
+		
 
 		loop_1: while (true) {
+			
+			do {
+				System.out.println("[1] 상품추가 [2] 상품삭제 [3] 재고관리 [4] 재고변경 [5] 판매상태 [6] 초기화면");
+				userChoice = scanner.nextInt();
+				scanner.nextLine();
+			} while (userChoice < 1 || userChoice > 6);
+			
+			
 			switch (userChoice) {
 
 			// 제품추가
@@ -613,9 +628,13 @@ public class CakeCustomShop implements StoreOrderSystem {
 			case 5:
 
 				break;
-
+			case 6:
+				start();
+				return;
+				
 			default:
-				break;
+				start();
+				return;
 			}
 		}
 
@@ -628,6 +647,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 		do {
 			System.out.println("[1] 주문하기 [2] 예약조회 [3] 예약변경 [4] 예약취소 [5] 픽업하기 [6] 로그아웃");
 			userChoice = scanner.nextInt();
+			scanner.nextLine();
 		} while (userChoice < 1 || userChoice > 6);
 
 		while (true) {

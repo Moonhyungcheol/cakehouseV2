@@ -16,35 +16,18 @@ public class CakeCustomProduct {
     	
     	switch (product){
     		case "Sheet": 
-    			for(Sheet sheet : sheetList) {
-    				if(sheet.name.equals(name)) {
-    					return;
-    				} else {
-    					sheetList.add(new Sheet(name, price, count));
-    				}
-    			}
+    			sheetList.add(new Sheet(name, price, count));
     			System.out.println("제품등록에 성공하였습니다.");
     			break;
     			
     		case "FreshCream":
-    			for(FreshCream freshCream : freshCreamList) {
-    				if(freshCream.name.equals(name)) {
-    					return;
-    				} else {
-    					freshCreamList.add(new FreshCream(name, price, count));
-    				}
-    			}
+    			freshCreamList.add(new FreshCream(name, price, count));
     			System.out.println("제품등록에 성공하였습니다.");
     			break;
     			
     		case "Topping":
-    			for(Topping topping : toppingList) {
-    				if(topping.name.equals(name)) {
-    					return;
-    				} else {
-    					toppingList.add(new Topping(name, price, count));
-    				}
-    			}
+    			toppingList.add(new Topping(name, price, count));
+    			System.out.println("제품등록에 성공하였습니다.");
     			break;
     		default:
     			System.out.println("제품등록에 실패하였습니다.");
