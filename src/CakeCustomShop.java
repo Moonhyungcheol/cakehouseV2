@@ -4,11 +4,11 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import javax.rmi.CORBA.Util;
 
 public class CakeCustomShop implements StoreOrderSystem {
 	private UserInfo nowUser = new UserInfo();
@@ -34,35 +34,35 @@ public class CakeCustomShop implements StoreOrderSystem {
 		joinmembership.addJoinUser(managerInfo);
 	}
 
-	/**
-	 * @author 안승주
-	 */
-	@Override
-	public void order() {
-		Sheet choiceSheet = null;
-		FreshCream choicefreshcream = null;
-		Topping choiceTopping = null;
-		int choiceCandleNum = 0;
-		int fireCracker = 0;
-		int priceSum = 0;
+    /**
+     * @author 안승주
+     */
+    @Override
+    public void order() {
+        Sheet choiceSheet = null;
+        FreshCream choicefreshcream = null;
+        Topping choiceTopping = null;
+        int choiceCandleNum = 0;
+        int fireCracker = 0;
+        int priceSum = 0;
 
-		// 시트 만들기
-		forcount = 0;
-		System.out.println("시트를 골라주세요");
-		for (Sheet sheet : CakeCustomProduct.getSheetList()) {
-			System.out.println("[" + (++forcount) + "]번 시트 이름: " + sheet.name + " 가격: " + sheet.price + " 원");
-		}
+        // 시트 만들기
+        forcount = 0;
+        System.out.println("시트를 골라주세요");
+        for (Sheet sheet : CakeCustomProduct.getSheetList()) {
+            System.out.println("[" + (++forcount) + "]번 시트 이름: " + sheet.name + " 가격: " + sheet.price + " 원");
+        }
 
-		int userChoice = 0;
-		userChoice = Integer.parseInt(scanner.nextLine());
+        int userChoice = 0;
+        userChoice = Integer.parseInt(scanner.nextLine());
 
-		while (userChoice < 1 || userChoice > CakeCustomProduct.getSheetList().size()) {
-			System.out.println("시트를 제대로 골라주세요");
-			Integer.parseInt(scanner.nextLine());
-		}
+        while (userChoice < 1 || userChoice > CakeCustomProduct.getSheetList().size()) {
+            System.out.println("시트를 제대로 골라주세요");
+            Integer.parseInt(scanner.nextLine());
+        }
 
-		choiceSheet = CakeCustomProduct.getSheetList().get(userChoice - 1);
-		--choiceSheet.count;
+        choiceSheet = CakeCustomProduct.getSheetList().get(userChoice - 1);
+        --choiceSheet.count;
 //        String userChoicestr = scanner.nextLine();
 //        for (Sheet sheet : CakeCustomProduct.getSheetList()) {
 //            if (userChoicestr.equals(sheet.name)) {
@@ -73,295 +73,333 @@ public class CakeCustomShop implements StoreOrderSystem {
 //            }
 //        }
 
-		// 생크림 만들기
-		forcount = 0;
-		System.out.println("생크림를 골라주세요");
-		for (FreshCream freshcream : CakeCustomProduct.getFreshCreamList()) {
-			System.out.println("[" + ++forcount + "]번 시트 이름: " + freshcream.name + " 가격: " + freshcream.price + " 원");
-		}
-		userChoice = Integer.parseInt(scanner.nextLine());
+        // 생크림 만들기
+        forcount = 0;
+        System.out.println("생크림를 골라주세요");
+        for (FreshCream freshcream : CakeCustomProduct.getFreshCreamList()) {
+            System.out.println("[" + ++forcount + "]번 시트 이름: " + freshcream.name + " 가격: " + freshcream.price + " 원");
+        }
+        userChoice = Integer.parseInt(scanner.nextLine());
 
-		while (userChoice < 1 || userChoice > CakeCustomProduct.getFreshCreamList().size()) {
-			System.out.println("생크림을 제대로 골라주세요");
-			userChoice = Integer.parseInt(scanner.nextLine());
-		}
+        while (userChoice < 1 || userChoice > CakeCustomProduct.getFreshCreamList().size()) {
+            System.out.println("생크림을 제대로 골라주세요");
+            userChoice = Integer.parseInt(scanner.nextLine());
+        }
 
-		choicefreshcream = CakeCustomProduct.getFreshCreamList().get(userChoice - 1);
-		--choicefreshcream.count;
+        choicefreshcream = CakeCustomProduct.getFreshCreamList().get(userChoice - 1);
+        --choicefreshcream.count;
 
-		// 토핑 만들기
-		forcount = 0;
-		System.out.println("토핑을 골라주세요");
+        // 토핑 만들기
+        forcount = 0;
+        System.out.println("토핑을 골라주세요");
 
-		for (Topping freshcream : CakeCustomProduct.getToppingList()) {
-			System.out.println("[" + ++forcount + "]번 시트 이름: " + freshcream.name + " 가격: " + freshcream.price + " 원");
-		}
+        for (Topping freshcream : CakeCustomProduct.getToppingList()) {
+            System.out.println("[" + ++forcount + "]번 시트 이름: " + freshcream.name + " 가격: " + freshcream.price + " 원");
+        }
 
-		userChoice = Integer.parseInt(scanner.nextLine());
+        userChoice = Integer.parseInt(scanner.nextLine());
 
-		while (userChoice < 1 || userChoice > CakeCustomProduct.getToppingList().size()) {
-			System.out.println("생크림을 제대로 골라주세요");
-			userChoice = Integer.parseInt(scanner.nextLine());
-		}
+        while (userChoice < 1 || userChoice > CakeCustomProduct.getToppingList().size()) {
+            System.out.println("토핑을 제대로 골라주세요");
+            userChoice = Integer.parseInt(scanner.nextLine());
+        }
 
-		choiceTopping = CakeCustomProduct.getToppingList().get(userChoice - 1);
-		--choiceTopping.count;
+        choiceTopping = CakeCustomProduct.getToppingList().get(userChoice - 1);
+        --choiceTopping.count;
 
-		// 초 갯수 정하기
-		System.out.println("초의 갯수를 정해주세요");
-		int userChoiceint = Integer.parseInt(scanner.nextLine());
-		choiceCandleNum = userChoiceint;
+        // 초 갯수 정하기
+        System.out.println("초의 갯수를 정해주세요");
+        int userChoiceint = Integer.parseInt(scanner.nextLine());
+        choiceCandleNum = userChoiceint;
 
-		// 폭죽 갯수 정하기
-		System.out.println("폭죽의 갯수를 정해주세요");
-		userChoiceint = Integer.parseInt(scanner.nextLine());
-		fireCracker = userChoiceint;
+        // 폭죽 갯수 정하기
+        System.out.println("폭죽의 갯수를 정해주세요");
+        userChoiceint = Integer.parseInt(scanner.nextLine());
+        fireCracker = userChoiceint;
 
-		// 가격책청
-		priceSum = choicefreshcream.price + choiceSheet.price + choiceTopping.price;
+        // 가격책청
+        priceSum = choicefreshcream.price + choiceSheet.price + choiceTopping.price;
 
-		// 픽업 날짜 정하고 유효성 검사 및 Date 타입 변환 작업
-		System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
+        // 픽업 날짜 정하고 유효성 검사 및 Date 타입 변환 작업
+        System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
 
-		Date dayBuy = null;
-		Date dayPickUp = null;
-		int compare = 0;
+        Date dayBuy = null;
+        Date dayPickUp = null;
+        int compare = 0;
 
-		// pickUpDate 형식 검사
-		while (true) {
-			String pickUpDate = scanner.nextLine();
-			if (!datePattern.matcher(pickUpDate).matches()) {
-				System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
-				continue;
-			}
-			try {
-				dayBuy = sdf.parse(buyDate);
-				dayPickUp = sdf.parse(pickUpDate);
-			} catch (Exception e) {
-				e.printStackTrace();
-				scanner = new Scanner(System.in);
-			}
-			compare = dayBuy.compareTo(dayPickUp);
-			if (compare > 0) {
-				System.out.println("날짜가 올바르지 않습니다.");
-				continue;
-			} else {
-				break;
-			}
-		}
+        // pickUpDate 형식 검사
+        while (true) {
+            String pickUpDate = scanner.nextLine();
+            if (!datePattern.matcher(pickUpDate).matches()) {
+                System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
+                continue;
+            }
+            try {
+                dayBuy = sdf.parse(buyDate);
+                dayPickUp = sdf.parse(pickUpDate);
+            } catch (Exception e) {
+                e.printStackTrace();
+                scanner = new Scanner(System.in);
+            }
+            compare = dayBuy.compareTo(dayPickUp);
+            if (compare > 0) {
+                System.out.println("날짜가 올바르지 않습니다.");
+                continue;
+            } else {
+                break;
+            }
+        }
 
-		// 픽업 default 값 false
-		boolean ReservationStatus = false;
+        // 픽업 default 값 false
+        boolean ReservationStatus = false;
 
-		nowUser.getUserCustom().add(new Custom(choiceSheet, choicefreshcream, choiceTopping, choiceCandleNum,
-				fireCracker, priceSum, dayBuy, ReservationStatus, dayPickUp));
-		orderUser.add(nowUser);
+        nowUser.getUserCustom().add(new Custom(choiceSheet, choicefreshcream, choiceTopping, choiceCandleNum,
+                fireCracker, priceSum, dayBuy, ReservationStatus, dayPickUp));
+        orderUser.add(nowUser);
+    }
 
-	}
+    @Override
+    public void reservationSerch() {
+        // 예약정보 출력하기
+        System.out.println(nowUser.getName() + "고객님의 예약정보입니다.");
+        for (Custom userCustom : nowUser.getUserCustom()) {
+            System.out.println(userCustom);
+        }
+    }
 
-	@Override
-	public void reservationSerch() {
-		// 예약정보 출력하기
-		System.out.println(nowUser.getName() + "고객님의 예약정보입니다.");
-		for (Custom userCustom : nowUser.getUserCustom()) {
-			System.out.println(userCustom);
-		}
-	}
+    @Override
+    public void reservationChange() {
 
-	@Override
-	public void reservationChange() {
+        System.out.println("예약 주문을 바꾸시겠습니까?");
+        System.out.println("1: 예 2: 아니요");
+        int userChoiceNum = scanner.nextInt();
+        if (userChoiceNum == 1) {
+            for (Custom userCustom : nowUser.getUserCustom()) {
+                System.out.println(userCustom);
+                System.out.println("해당 케이크주문을 변경하시겠습니까?1. 예 2. 아니요");
 
-		System.out.println("예약 주문을 바꾸시겠습니까?");
-		System.out.println("1: 예 2: 아니요");
-		int userChoiceNum = scanner.nextInt();
-		if (userChoiceNum == 1) {
-			for (Custom userCustom : nowUser.getUserCustom()) {
-				System.out.println(userCustom);
-				System.out.println("해당 케이크주문을 변경하시겠습니까?1. 예 2. 아니요");
+                int userChoice = scanner.nextInt();
+                scanner.nextLine();
+                
+                if (userChoice == 1) {
+                    while (true) {
+                    
+                    
+                        
+                        Custom changeCustom = userCustom;
+                        // changeCustom.getSheet() =
+                        System.out.println("[1]시트변경 [2]생크림변경 [3]토핑변경 [4]초 갯수 변경 [5]폭죽 갯수 변경 [6]픽업 날짜 변경 [7] 변경 취소");
+                        userChoice = scanner.nextInt();
+                        scanner.nextLine();
+                        switch (userChoiceNum) {
 
-				int userChoice = scanner.nextInt();
-				scanner.nextLine();
-				while (true) {
-					if (userChoice == 1) {
+                        case 1:
 
-						Custom changeCustom = userCustom;
-						// changeCustom.getSheet() =
-						System.out.println("[1]시트변경 [2]생크림변경 [3]토핑변경 [4]초 갯수 변경 [5]폭죽 갯수 변경 [6]픽업 날짜 변경 [7] 변경 취소");
-						switch (userChoiceNum) {
+                            // 시트 변경
+                            forcount = 0;
+                            Sheet changesheet = null;
+                            System.out.println("변경할 시트를 골라주세요");
+                            for (Sheet sheet : CakeCustomProduct.getSheetList()) {
+                                System.out.println(
+                                        "[" + (++forcount) + "]번 시트 이름: " + sheet.name + " 가격: " + sheet.price + " 원");
+                            }
+                            //userChoice를 인트로 변환후 인데스 값으로 찾기
+                            userChoice = Integer.parseInt(scanner.nextLine());
+                            userCustom.getSheet().count++;
+                            while (userChoice < 1 || userChoice > CakeCustomProduct.getSheetList().size()) {
+                                System.out.println("생크림을 제대로 골라주세요");
+                                userChoice = Integer.parseInt(scanner.nextLine());
+                            }
 
-						case 1:
+                            changesheet = CakeCustomProduct.getSheetList().get(userChoice - 1);
+                            changesheet.count--;
+                            
+                            userCustom.setSheet(changesheet);
+                            // 다시추가
+//                            userCustom.getSheet().count++;
+//                            for (Sheet sheet : CakeCustomProduct.getSheetList()) {
+//                                if (userChoicestr.equals(sheet.name)) {
+//                                    changesheet = sheet;
+//                                    changeCustom.setSheet(changesheet);
+//                                    changesheet.count--;
+//                                    
+//                                }
+//                            }
 
-							// 시트 변경
-							forcount = 0;
-							Sheet changesheet = null;
-							System.out.println("변경할 시트를 골라주세요");
-							for (Sheet sheet : CakeCustomProduct.getSheetList()) {
-								System.out.println(
-										"[" + (++forcount) + "]번 시트 이름: " + sheet.name + " 가격: " + sheet.price + " 원");
-							}
+                            //continue Loop_1;
+                            break;
 
-							String userChoicestr = scanner.nextLine();
+                        case 2:
 
-							// 다시추가
-							userCustom.getSheet().count++;
-							for (Sheet sheet : CakeCustomProduct.getSheetList()) {
-								if (userChoicestr.equals(sheet.name)) {
-									changesheet = sheet;
-									changeCustom.setSheet(changesheet);
-									changesheet.count--;
-									break;
-								}
-							}
+                            // 생크림 변경
+                            forcount = 0;
+                            FreshCream changeFreshCream = null;
+                            System.out.println("변경할 생크림를 골라주세요");
+                            for (FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
+                                System.out.println("[" + (++forcount) + "]번 생크림 이름: " + freshCream.name + " 가격: "
+                                        + freshCream.price + " 원");
+                            }
+                            
+                            
+//                            userChoicestr = scanner.nextLine();
+//                            userCustom.getFreshcream().count++;
+//                            for (FreshCream FreshCream : CakeCustomProduct.getFreshCreamList()) {
+//                                if (userChoicestr.equals(FreshCream.name)) {
+//                                    changeFreshCream = FreshCream;
+//                                    changeCustom.setFreshcream(changeFreshCream);
+//                                    FreshCream.count--;
+//                                    
+//                                }
+//                            }
+                            
+                            userChoice = Integer.parseInt(scanner.nextLine());
+                            userCustom.getFreshcream().count++;
+                            while(userChoice >1 || userChoice < CakeCustomProduct.getFreshCreamList().size()) {
+                                System.out.println("제대로 골라 주세요");
+                                userChoice = Integer.parseInt(scanner.nextLine());
+                            }
+                            
+                            changeFreshCream = CakeCustomProduct.getFreshCreamList().get(userChoiceNum -1);
+                            changeFreshCream.count--;
+                            userCustom.setFreshcream(changeFreshCream);
+                            
+                            //continue Loop_1;
+                            break;
 
-							break;
+                        case 3:
 
-						case 2:
+                            // 토핑 변경
+                            forcount = 0;
+                            Topping changeTopping = null;
+                            System.out.println("변경할 토핑를 골라주세요");
+                            for (Topping topping : CakeCustomProduct.getToppingList()) {
+                                System.out.println("[" + (++forcount) + "]번 토핑2 이름: " + topping.name + " 가격: "
+                                        + topping.price + " 원");
+                            }
+//                            userChoicestr = scanner.nextLine();
+//                            userCustom.getTopping().count++;
+//                            for (Topping topping : CakeCustomProduct.getToppingList()) {
+//                                if (userChoicestr.equals(topping.name)) {
+//                                    changeTopping = topping;
+//                                    changeCustom.setTopping(changeTopping);
+//                                    changeTopping.count--;
+//                                    
+//                                }
+//                            }
+                            
+                            userChoice = Integer.parseInt(scanner.nextLine());
+                            userCustom.getTopping().count++;
+                            while(userChoice > 1 || userChoice < CakeCustomProduct.getToppingList().size()) {
+                                System.out.println("제대로 골라주세요");
+                                userChoice = Integer.parseInt(scanner.nextLine());
+                            }
+                            changeTopping = CakeCustomProduct.getToppingList().get(userChoiceNum - 1);
+                            changeTopping.count--;
+                            userCustom.setTopping(changeTopping);
+                            
+                            //continue Loop_1;
+                            break;
+                        case 4:
+                            // 초 갯수 변경
 
-							// 생크림 변경
-							forcount = 0;
-							FreshCream changeFreshCream = null;
-							System.out.println("변경할 생크림를 골라주세요");
-							for (FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
-								System.out.println("[" + (++forcount) + "]번 시트 이름: " + freshCream.name + " 가격: "
-										+ freshCream.price + " 원");
-							}
-							userChoicestr = scanner.nextLine();
-							userCustom.getFreshcream().count++;
-							for (FreshCream FreshCream : CakeCustomProduct.getFreshCreamList()) {
-								if (userChoicestr.equals(FreshCream.name)) {
-									changeFreshCream = FreshCream;
-									changeCustom.setFreshcream(changeFreshCream);
-									FreshCream.count--;
-									break;
-								}
-							}
+                            int userChoiceint = 0;
+                            System.out.println("초의 갯수를 정해주세요");
+                            userChoiceint = scanner.nextInt();
+                            changeCustom.setCandle(userChoiceNum);
+                            break;
+                            //continue Loop_1;
 
-							break;
+                        case 5:
 
-						case 3:
+                            // 폭죽 갯수 변경
+                            userChoiceint = 0;
+                            System.out.println("폭죽의 갯수를 정해주세요");
+                            userChoiceint = scanner.nextInt();
+                            changeCustom.setFireCracker(userChoiceNum);
+                            break;
+                            //continue Loop_1;
 
-							// 토핑 변경
-							forcount = 0;
-							Topping changeTopping = null;
-							System.out.println("변경할 토핑를 골라주세요");
-							for (Topping topping : CakeCustomProduct.getToppingList()) {
-								System.out.println("[" + (++forcount) + "]번 시트 이름: " + topping.name + " 가격: "
-										+ topping.price + " 원");
-							}
-							userChoicestr = scanner.nextLine();
-							userCustom.getTopping().count++;
-							for (Topping topping : CakeCustomProduct.getToppingList()) {
-								if (userChoicestr.equals(topping.name)) {
-									changeTopping = topping;
-									changeCustom.setTopping(changeTopping);
-									changeTopping.count--;
-									break;
-								}
-							}
+                        case 6:
 
-							break;
-						case 4:
-							// 초 갯수 변경
+                            // 픽업 날짜 변경
+                            System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
+                            scanner.nextLine();
+                            Date dayBuy = null;
+                            Date dayPickUp = null;
+                            int compare = 0;
 
-							int userChoiceint = 0;
-							System.out.println("초의 갯수를 정해주세요");
-							userChoiceint = scanner.nextInt();
-							changeCustom.setCandle(userChoiceNum);
+                            // pickUpDate 형식 검사 및 Date타입으로 형변환
+                            while (true) {
+                                String pickUpDate = scanner.nextLine();
+                                if (!datePattern.matcher(pickUpDate).matches()) {
+                                    System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
+                                    continue;
+                                }
+                                try {
+                                    dayBuy = sdf.parse(buyDate);
+                                    dayPickUp = sdf.parse(pickUpDate);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    scanner = new Scanner(System.in);
+                                }
+                                compare = dayBuy.compareTo(dayPickUp);
+                                if (compare > 0) {
+                                    System.out.println("날짜가 올바르지 않습니다.");
+                                    continue;
+                                } else {
+                                    break;
+                                }
+                            }
+                            changeCustom.setPickupDate(dayPickUp);
+                            break;
+                            //continue Loop_1;
 
-							break;
+                        case 7:
+                            System.out.println("종료합니다");
+                            return;
+                        default:
+                            System.out.println("잘못 입력하셨습니다.");
+                            break;
+                            //continue Loop_1;
+                        }
 
-						case 5:
+                    
+                }//while end
+                    } else {
+                        return;
+                    }  
+            }
+        }
+    }
 
-							// 폭죽 갯수 변경
-							userChoiceint = 0;
-							System.out.println("폭죽의 갯수를 정해주세요");
-							userChoiceint = scanner.nextInt();
-							changeCustom.setFireCracker(userChoiceNum);
 
-							break;
 
-						case 6:
+    @Override
+    public void reservationDelete() {
+       // 예약정보 지우기
+       System.out.println("고객님의 예약정보를 지우겠습니다..");
+       for (Custom userCustom : nowUser.getUserCustom()) {
+          System.out.println(userCustom);
+          System.out.println("해당 예약정보를 지우겠습니까? 1. yes 2. no");
+          int userChoice = scanner.nextInt();
+          Iterator itr = nowUser.getUserCustom().iterator();
+          if(userChoice==1) {
+             while (itr.hasNext()) {
+                //주문유저 리스트에서 지우기
+                //orderUser.remove(itr);
+                //nowUser.getUserCustom().remove(itr);
+                 itr.remove();
+                System.out.println("지우기완료");
+                break;
+             }
+          }else {
+             return;
+          }
+       }
 
-							// 픽업 날짜 변경
-							System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
-							scanner.nextLine();
-							Date dayBuy = null;
-							Date dayPickUp = null;
-							int compare = 0;
+    }
 
-							// pickUpDate 형식 검사 및 Date타입으로 형변환
-							while (true) {
-								String pickUpDate = scanner.nextLine();
-								if (!datePattern.matcher(pickUpDate).matches()) {
-									System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
-									continue;
-								}
-								try {
-									dayBuy = sdf.parse(buyDate);
-									dayPickUp = sdf.parse(pickUpDate);
-								} catch (Exception e) {
-									e.printStackTrace();
-									scanner = new Scanner(System.in);
-								}
-								compare = dayBuy.compareTo(dayPickUp);
-								if (compare > 0) {
-									System.out.println("날짜가 올바르지 않습니다.");
-									continue;
-								} else {
-									break;
-								}
-							}
-							changeCustom.setPickupDate(dayPickUp);
-
-							break;
-
-						case 7:
-							System.out.println("종료합니다");
-							return;
-						default:
-							System.out.println("잘못 입력하셨습니다.");
-							break;
-						}
-
-					} else {
-						return;
-					}
-
-					break;
-				}
-
-				return;
-			}
-		}
-
-	}
-
-	@Override
-	public void reservationDelete() {
-		// 예약정보 지우기
-		System.out.println("고객님의 예약정보를 지우겠습니다..");
-		for (Custom userCustom : nowUser.getUserCustom()) {
-			System.out.println(userCustom);
-			System.out.println("해당 예약정보를 지우겠습니까? 1. yes 2. no");
-			int userChoice = scanner.nextInt();
-			if (userChoice == 1) {
-				balance -= userCustom.getPriceSum();
-				nowUser.getUserCustom().remove(userChoice);
-				System.out.println("지우기완료");
-
-			} else {
-				return;
-			}
-		}
-		// 예약정보 데이터저장
-		// orderUser에서도 삭제하기
-		for (UserInfo user : orderUser) {
-			if (user == nowUser) {
-				orderUser.remove(user);
-			}
-		}
-
-	}
+	
 
 	@Override
 	public void pickUp() {
