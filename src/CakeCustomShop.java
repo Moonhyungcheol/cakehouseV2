@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
 public class CakeCustomShop implements StoreOrderSystem {
 	private UserInfo nowUser = new UserInfo();
 	private List<UserInfo> orderUser = new ArrayList<UserInfo>();
-	
+
 	JoinMenberShip joinmembership = new JoinMenberShip();
-	
+
 	private long balance;
 	private int forcount;
 	private Scanner scanner = new Scanner(System.in);
@@ -346,26 +346,25 @@ public class CakeCustomShop implements StoreOrderSystem {
 			}
 		}
 	}
-	
 
 	/**
 	 * 제품추가
 	 * 
 	 * @author 조하선
 	 */
-    public void addProduct() {
-    	System.out.println("=== 제품등록 ===");
-    	while(true) {
-    		System.out.println("추가할 상품 분류를 선택해주세요. ");
-        	System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
-        	int userChoice = scanner.nextInt();
-        	switch (userChoice) {
+	public void addProduct() {
+		System.out.println("=== 제품등록 ===");
+		while (true) {
+			System.out.println("추가할 상품 분류를 선택해주세요. ");
+			System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
+			int userChoice = scanner.nextInt();
+			switch (userChoice) {
 			case 1:
 				System.out.println("시트 제품을 추가합니다.");
 				System.out.println("추가할 시트의 이름을 입력해주세요: ");
 				String productName = scanner.nextLine();
-				for(Sheet sheet : CakeCustomProduct.getSheetList()) {
-					if(productName.equals(sheet.name)) {
+				for (Sheet sheet : CakeCustomProduct.getSheetList()) {
+					if (productName.equals(sheet.name)) {
 						System.out.println("이미 추가되어있는 상품입니다.");
 						System.out.println("초기 메뉴로 돌아갑니다.");
 						break;
@@ -381,8 +380,8 @@ public class CakeCustomShop implements StoreOrderSystem {
 				System.out.println("생크림 제품을 추가합니다.");
 				System.out.println("추가할 생크림의 이름을 입력해주세요: ");
 				productName = scanner.nextLine();
-				for(FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
-					if(productName.equals(freshCream.name)) {
+				for (FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
+					if (productName.equals(freshCream.name)) {
 						System.out.println("이미 추가되어있는 상품입니다.");
 						System.out.println("초기 메뉴로 돌아갑니다.");
 						break;
@@ -398,8 +397,8 @@ public class CakeCustomShop implements StoreOrderSystem {
 				System.out.println("토핑 제품을 추가합니다.");
 				System.out.println("추가할 토핑의 이름을 입력해주세요: ");
 				productName = scanner.nextLine();
-				for(Topping topping : CakeCustomProduct.getToppingList()) {
-					if(productName.equals(topping.name)) {
+				for (Topping topping : CakeCustomProduct.getToppingList()) {
+					if (productName.equals(topping.name)) {
 						System.out.println("이미 추가되어있는 상품입니다.");
 						System.out.println("초기 메뉴로 돌아갑니다.");
 						break;
@@ -418,24 +417,24 @@ public class CakeCustomShop implements StoreOrderSystem {
 			default:
 				System.out.println("올바른 입력값이 아닙니다.");
 			}
-    	}
-    }
-    
+		}
+	}
+
 	/**
 	 * 제품삭제
 	 * 
 	 * @author 조하선
 	 */
-    public void deleteProduct() {
-    	System.out.println("=== 제품삭제 ===");
+	public void deleteProduct() {
+		System.out.println("=== 제품삭제 ===");
 		System.out.println("== 현재 등록된 상품 목록 ==");
 		productListPrint();
-    	while(true) {
-        	int count=0;
-    		System.out.println("삭제할 상품 분류를 선택해주세요.");
-    		System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
-    		int userChoice = scanner.nextInt();
-    		switch (userChoice) {
+		while (true) {
+			int count = 0;
+			System.out.println("삭제할 상품 분류를 선택해주세요.");
+			System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
+			int userChoice = scanner.nextInt();
+			switch (userChoice) {
 			case 1:
 				System.out.println("삭제할 시트명을 입력해주세요.");
 				String deleteProductName = scanner.nextLine();
@@ -446,7 +445,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 				deleteProductName = scanner.nextLine();
 				CakeCustomProduct.productDel("FreshCream", deleteProductName);
 				break;
-				
+
 			case 3:
 				System.out.println("삭제할 토핑명을 입력해주세요.");
 				deleteProductName = scanner.nextLine();
@@ -460,66 +459,65 @@ public class CakeCustomShop implements StoreOrderSystem {
 				System.out.println("올바른 입력값이 아닙니다.");
 				break;
 			}
-    	}
-    	
-    	
-    }
-    
+		}
+
+	}
+
 	/**
 	 * 재고관리
 	 * 
 	 * @author 조하선
 	 */
-    public void productListPrint() {
-    	System.out.println("==== BITCAKE CUSTOM MENU ====");
+	public void productListPrint() {
+		System.out.println("==== BITCAKE CUSTOM MENU ====");
 		System.out.println("<< SHEET CUSTOM MENU >>");
-		for(Sheet sheet : CakeCustomProduct.getSheetList()) {
+		for (Sheet sheet : CakeCustomProduct.getSheetList()) {
 			System.out.println(sheet);
 		}
 		System.out.println("<< FRESH CUSTOM MENU >>");
-		for(FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
+		for (FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
 			System.out.println(freshCream);
 		}
 		System.out.println("<< TOPPING CUSTOM MENU >>");
-		for(Topping topping : CakeCustomProduct.getToppingList()) {
+		for (Topping topping : CakeCustomProduct.getToppingList()) {
 			System.out.println(topping);
 		}
-    }
-    
+	}
+
 	/**
 	 * 재고변경
 	 * 
 	 * @author 조하선
 	 */
-    public void changeStock() {
-    	System.out.println("==재고변경==");
-    	System.out.println("현재 재고 현황입니다.");
-    	productListPrint();
-    	while(true) {
-    		System.out.println("변경할 상품의 분류를 선택해주세요: ");
-    		System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
-    		int userChoice = scanner.nextInt();
-    		switch (userChoice) {
+	public void changeStock() {
+		System.out.println("==재고변경==");
+		System.out.println("현재 재고 현황입니다.");
+		productListPrint();
+		while (true) {
+			System.out.println("변경할 상품의 분류를 선택해주세요: ");
+			System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
+			int userChoice = scanner.nextInt();
+			switch (userChoice) {
 			case 1:
 				System.out.println("변경을 원하는 시트제품명을 입력해주세요: ");
-				
+
 				break;
 			case 2:
-				
+
 				break;
 			case 3:
-				
+
 				break;
 			case 4:
-				
+
 				break;
 			default:
 				break;
 			}
-    	}
-    }
-    
-    //판매상태
+		}
+	}
+
+	// 판매상태
 
 	/**
 	 * 
@@ -567,13 +565,47 @@ public class CakeCustomShop implements StoreOrderSystem {
 	}
 
 	/**
+	 * 매니저 메뉴 호출
+	 * 
 	 * @author 문형철
 	 */
 	public void managerMenu() {
 		int userChoice = 0;
 		do {
 			System.out.println("[1] 상품추가 [2] 상품삭제 [3] 재고관리 [4] 재고변경 [5] 판매상태");
-		} while (userChoice < 0);
+		} while (userChoice < 1 || userChoice > 5);
+
+		loop_1: while (true) {
+			switch (userChoice) {
+
+			// 제품추가
+			case 1:
+				addProduct();
+				continue loop_1;
+
+			// 제품삭제
+			case 2:
+				deleteProduct();
+				continue loop_1;
+
+			// 재고관리
+			case 3:
+				productListPrint();
+				continue loop_1;
+			// 재고변경
+			case 4:
+				changeStock();
+				continue loop_1;
+
+			case 5:
+
+				break;
+
+			default:
+				break;
+			}
+		}
+
 	}
 
 	public void userMenu() {
