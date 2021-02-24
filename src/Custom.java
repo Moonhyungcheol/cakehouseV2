@@ -12,7 +12,22 @@ public class Custom {
     private Date pickupDate;
     
     
-	public Sheet getSheet() {
+    
+	public Custom(Sheet sheet, FreshCream freshcream, Topping topping, int candle, int fireCracker, int priceSum,
+            Date reservationDate, boolean reservationStatus, Date pickupDate) {
+        super();
+        this.sheet = sheet;
+        this.freshcream = freshcream;
+        this.topping = topping;
+        this.candle = candle;
+        this.fireCracker = fireCracker;
+        this.priceSum = priceSum;
+        this.reservationDate = reservationDate;
+        this.reservationStatus = reservationStatus;
+        this.pickupDate = pickupDate;
+    }
+    
+    public Sheet getSheet() {
 		return sheet;
 	}
 	public FreshCream getFreshcream() {
