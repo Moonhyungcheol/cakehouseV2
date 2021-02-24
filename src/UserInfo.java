@@ -1,8 +1,9 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserInfo extends JoinMenberShip {
+public class UserInfo extends JoinMenberShip implements Serializable{
 	private String id;
 	private String password;
 	private String name;

@@ -22,13 +22,6 @@ public class CakeCustomShop implements StoreOrderSystem {
     private String buyDate = sdf.format(date);
 
     public CakeCustomShop() {
-        // 관리자 등록
-        UserInfo managerInfo = new UserInfo();
-        managerInfo.setId("admin");
-        managerInfo.setPassword("admin");
-
-        // 유저리스트에 추가
-        joinmembership.addJoinUser(managerInfo);
     }
 
     /**
@@ -87,37 +80,36 @@ public class CakeCustomShop implements StoreOrderSystem {
         --choicefreshcream.count;
 
         // 토핑 만들기
-        loop_1 : do {
+        loop_1: do {
             forcount = 0;
-            System.out.println("토핑을 골라주세요");    
-            
+            System.out.println("토핑을 골라주세요");
+
             for (Topping topping : CakeCustomProduct.getToppingList()) {
                 System.out.println("[" + ++forcount + "]번 시트 이름: " + topping.name + " 가격: " + topping.price + " 원");
             }
-            
+
             userChoice = Integer.parseInt(scanner.nextLine());
 
             while (userChoice < 1 || userChoice > CakeCustomProduct.getToppingList().size()) {
                 System.out.println("토핑을 제대로 골라주세요");
                 userChoice = Integer.parseInt(scanner.nextLine());
             }
-            
-            choiceTopping =CakeCustomProduct.getToppingList().get(userChoice - 1);
+
+            choiceTopping = CakeCustomProduct.getToppingList().get(userChoice - 1);
             --choiceTopping.count;
-            
+
             System.out.println("하나 더 고르시겠습니까? [1] yes [2] no");
             userChoice = Integer.parseInt(scanner.nextLine());
-            
+
             switch (userChoice) {
             case 1:
                 continue loop_1;
             case 2:
                 break loop_1;
             }
-            
-        }while(true);
-        
-        
+
+        } while (true);
+
         // 초 갯수 정하기
         System.out.println("초의 갯수를 정해주세요");
         int userChoiceint = Integer.parseInt(scanner.nextLine());
@@ -194,7 +186,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 
                 if (userChoice == 1) {
                     while (true) {
-                        
+
                         Custom changeCustom = userCustom;
 
                         System.out.println("[1]시트변경 [2]생크림변경 [3]토핑변경 [4]초 갯수 변경 [5]폭죽 갯수 변경 [6]픽업 날짜 변경 [7] 변경 취소");
@@ -387,11 +379,11 @@ public class CakeCustomShop implements StoreOrderSystem {
             System.out.println(userCustom);
             System.out.println("해당 예약정보를 지우겠습니까? 1. yes 2. no");
             int userChoice = scanner.nextInt();
-            
+
             if (userChoice == 1) {
                 nowUser.setUserCustom(new ArrayList<Custom>());
             }
-            
+
 //            Iterator<Custom> itr = nowUser.getUserCustom().iterator();
 //            if (userChoice == 1) {
 //                while (itr.hasNext()) {
@@ -403,7 +395,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 //                    break;
 //                }
 //            } 
-            
+
             else {
                 return;
             }
@@ -617,7 +609,18 @@ public class CakeCustomShop implements StoreOrderSystem {
      * @author 문형철
      */
     public void start() {
+        /**************** TEST CODE ************************/
+        Utils utils = new Utils();
+        joinmembership.setJoinUser(utils.load("getJoinUser"));
 
+        List<Sheet> sheetlist = utils.load("SheetList.txt");
+        List<FreshCream> freshlist = utils.load("FreshCreamList.txt");
+        List<Topping> toppinglist = utils.load("ToppingList.txt");
+
+        CakeCustomProduct.setSheetList(sheetlist);
+        CakeCustomProduct.setFreshCreamList(freshlist);
+        CakeCustomProduct.setToppingList(toppinglist);
+        /**************** TEST CODE ************************/
         System.out.println("어서오세요~ 비트케이크입니다.");
         int userChoice = 0;
 
@@ -636,24 +639,11 @@ public class CakeCustomShop implements StoreOrderSystem {
 
         case 2:
             // 로그인
-            System.out.print("id : ");
+            System.out.print("ID : ");
             String id = scanner.nextLine();
-            System.out.print("password : ");
+            System.out.print("PASSWORD : ");
             String password = scanner.nextLine();
             nowUser = joinmembership.userLogin(id, password);
-            break;
-
-        case 3:
-            // 불러오기
-            Utils util = new Utils();
-            List<Sheet> sheetlist = util.load("SheetList.txt");
-            List<FreshCream> freshlist = util.load("FreshCreamList.txt");
-            List<Topping> toppinglist = util.load("ToppingList.txt");
-
-            CakeCustomProduct.setSheetList(sheetlist);
-            CakeCustomProduct.setFreshCreamList(freshlist);
-            CakeCustomProduct.setToppingList(toppinglist);
-
             break;
         }
 
