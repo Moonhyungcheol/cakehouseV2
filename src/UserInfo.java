@@ -9,6 +9,16 @@ public class UserInfo extends JoinMenberShip {
 	private String phoneNumber;
 	private List<Custom> userCustom = new ArrayList<Custom>();
 
+	public UserInfo() {}
+	
+	public UserInfo(String id, String password, String name, String phoneNumber) {
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+	}
+	
+	
 	public List<Custom> getUserCustom() {
 		return userCustom;
 	}
