@@ -381,6 +381,11 @@ public class CakeCustomShop implements StoreOrderSystem {
         // 예약정보 지우기
         System.out.println("고객님의 예약정보를 지우겠습니다..");
 
+        if (nowUser.getUserCustom().size() == 0) {
+            System.out.println("예약정보가 없습니다. 목록으로 돌아갑니다.");
+            return;
+        }
+        
         int index = 0;
         System.out.println("삭제하실 예약변호를 입력해주세요: ");
         for (Custom userCustom : nowUser.getUserCustom()) {
