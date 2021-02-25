@@ -381,6 +381,11 @@ public class CakeCustomShop implements StoreOrderSystem {
         // 예약정보 지우기
         System.out.println("고객님의 예약정보를 지우겠습니다..");
 
+        if (nowUser.getUserCustom().size() == 0) {
+            System.out.println("예약정보가 없습니다. 목록으로 돌아갑니다.");
+            return;
+        }
+        
         int index = 0;
         System.out.println("삭제하실 예약변호를 입력해주세요: ");
         for (Custom userCustom : nowUser.getUserCustom()) {
@@ -513,145 +518,137 @@ public class CakeCustomShop implements StoreOrderSystem {
             }
         }
     }
-
+    
     /**
-     * 제품삭제
-     * 
-     * @author 조하선
-     */
+	 * 제품삭제
+	 * 
+	 * @author 조하선
+	 */
     public void deleteProduct() {
         System.out.println("=== 제품삭제 ===");
-        System.out.println("== 현재 등록된 상품 목록 ==");
-        productListPrint();
         while (true) {
-            System.out.println("삭제할 상품 분류를 선택해주세요.");
-            System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
-            try {
-                int userChoice = scanner.nextInt();
-                scanner.nextLine();
-                switch (userChoice) {
-                case 1:
-                    System.out.println("삭제할 시트명을 입력해주세요.");
-                    String deleteProductName = scanner.nextLine();
-                    CakeCustomProduct.productDel("Sheet", deleteProductName);
-                    break;
-                case 2:
-                    System.out.println("삭제할 생크림명을 입력해주세요.");
-                    deleteProductName = scanner.nextLine();
-                    CakeCustomProduct.productDel("FreshCream", deleteProductName);
-                    break;
-
-                case 3:
-                    System.out.println("삭제할 토핑명을 입력해주세요.");
-                    deleteProductName = scanner.nextLine();
-                    CakeCustomProduct.productDel("Topping", deleteProductName);
-                    break;
-                case 4:
-                    System.out.println("제품 삭제를 종료합니다.");
-                    productListPrint();
-                    return;
-                default:
-                    System.out.println("올바른 입력값이 아닙니다.");
-                    break;
-                }
-            } catch (Exception e) {
-                e.getMessage();
+            try{
+                System.out.println("삭제할 상품 분류를 선택해주세요.");
+                System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
+            	int userChoice = scanner.nextInt();
+	            scanner.nextLine();
+	            switch (userChoice) {
+	            case 1:
+	            	productListPrint("Sheet");
+	            	System.out.println("삭제할 시트번호를 입력해주세요.");
+	            	int userIndex = scanner.nextInt();
+	            	CakeCustomProduct.productDel("Sheet", userIndex-1);
+	                break;
+	            case 2:
+	            	productListPrint("FreshCream");
+	                System.out.println("삭제할 생크림번호를 입력해주세요.");
+	            	userIndex = scanner.nextInt();
+	            	CakeCustomProduct.productDel("FreshCream", userIndex-1);
+	                break;
+	
+	            case 3:
+	            	productListPrint("Topping");
+	                System.out.println("삭제할 토핑번호를 입력해주세요.");
+	                userIndex = scanner.nextInt();
+	                CakeCustomProduct.productDel("Topping", userIndex-1);
+	                break;
+	            case 4:
+	                System.out.println("제품 삭제를 종료합니다.");
+	                productListPrint();
+	                return;
+	            default:
+	                System.out.println("올바른 입력값이 아닙니다.");
+	                break;
+	            }
+            }catch (Exception e) {
+            	System.out.println("올바른 입력값이 아닙니다.");
+            	break;
             }
         }
 
     }
 
-    /**
-     * 재고관리
-     * 
-     * @author 조하선
-     */
-    public void productListPrint() {
-        System.out.println("==== BITCAKE CUSTOM MENU ====");
-        System.out.println("<< SHEET CUSTOM MENU >>");
-        for (Sheet sheet : CakeCustomProduct.getSheetList()) {
-            System.out.println(sheet);
-        }
-        System.out.println("<< FRESH CUSTOM MENU >>");
-        for (FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
-            System.out.println(freshCream);
-        }
-        System.out.println("<< TOPPING CUSTOM MENU >>");
-        for (Topping topping : CakeCustomProduct.getToppingList()) {
-            System.out.println(topping);
-        }
-    }
 
     /**
-     * 재고변경
-     * 
-     * @author 조하선
-     */
-    public void changeStock() {
-        System.out.println("==재고변경==");
-        System.out.println("현재 재고 현황입니다.");
-        productListPrint();
-        while (true) {
-            System.out.println("변경할 상품의 분류를 선택해주세요: ");
-            System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
-            try {
-                int userChoice = scanner.nextInt();
-                scanner.nextLine();
-                switch (userChoice) {
-                case 1:
-                    System.out.println("변경을 원하는 시트제품명을 입력해주세요: ");
-                    String changeProduct = scanner.nextLine();
-                    for (Sheet sheet : CakeCustomProduct.getSheetList()) {
-                        if (sheet.name.equals(changeProduct)) {
-                            System.out.println("현재 제품 상태입니다.");
-                            System.out.println(sheet);
-                            System.out.println("재고값을 어떻게 변경할까요?");
-                            int changeCount = scanner.nextInt();
-                            sheet.count = changeCount;
-                        }
-                    }
-                    break;
-                case 2:
-                    System.out.println("변경을 원하는 생크림제품명을 입력해주세요: ");
-                    changeProduct = scanner.nextLine();
-                    for (FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
-                        if (freshCream.name.equals(changeProduct)) {
-                            System.out.println("현재 제품 상태입니다.");
-                            System.out.println(freshCream);
-                            System.out.println("재고값을 어떻게 변경할까요?");
-                            int changeCount = scanner.nextInt();
-                            freshCream.count = changeCount;
-                        }
-                    }
-                    break;
-                case 3:
-                    System.out.println("변경을 원하는 토핑제품명을 입력해주세요: ");
-                    changeProduct = scanner.nextLine();
-                    for (Topping topping : CakeCustomProduct.getToppingList()) {
-                        if (topping.name.equals(changeProduct)) {
-                            System.out.println("현재 제품 상태입니다.");
-                            System.out.println(topping);
-                            System.out.println("재고값을 어떻게 변경할까요?");
-                            int changeCount = scanner.nextInt();
-                            topping.count = changeCount;
-                        }
-                    }
+	 * 재고관리
+	 * 
+	 * @author 조하선
+	 */
+	public void productListPrint() {
+		System.out.println("==== BITCAKE CUSTOM MENU ====");
+		System.out.println("<< SHEET CUSTOM MENU >>");
+		int index = 0;
+		for (Sheet sheet : CakeCustomProduct.getSheetList()) {
+			System.out.print("["+(++index)+"]");
+			System.out.println(sheet);
+		}
+		index=0;
+		System.out.println("<< FRESH CUSTOM MENU >>");
+		for (FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
+			System.out.print("["+(++index)+"]");
+			System.out.println(freshCream);
+		}
+		index=0;
+		System.out.println("<< TOPPING CUSTOM MENU >>");
+		for (Topping topping : CakeCustomProduct.getToppingList()) {
+			System.out.print("["+(++index)+"]");
+			System.out.println(topping);
+		}
+	}
 
-                    break;
-                case 4:
-                    System.out.println("재고변경을 종료합니다.");
-                    productListPrint();
-                    return;
-                default:
-                    System.out.println("올바른 입력값이 아닙니다.");
-                    break;
-                }
-            } catch (Exception e) {
-                System.out.println("올바른 입력값이 아닙니다.");
-            }
+	/**
+	 * 재고변경
+	 * 
+	 * @author 조하선
+	 */
+	public void changeStock() {
+		System.out.println("==재고변경==");
+		int index=0;
+		while (true) {
+			System.out.println("변경할 상품의 분류를 선택해주세요: ");
+			System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
+			try {
+				int userChoice = scanner.nextInt();
+				scanner.nextLine();
+				switch (userChoice) {
+				case 1:
+					productListPrint("Sheet");
+					System.out.println("변경을 원하는 시트 번호를 입력해주세요: ");
+					int userIndex = scanner.nextInt();
+					System.out.println("재고값을 입력해주세요: ");
+					int changeCount = scanner.nextInt();
+					CakeCustomProduct.getSheetList().get(userIndex-1).count = changeCount;
+					break;
+				case 2:
+					productListPrint("FreshCream");
+					System.out.println("변경을 원하는 생크림 번호를 입력해주세요: ");
+					userIndex = scanner.nextInt();
+					System.out.println("재고값을 입력해주세요: ");
+					changeCount = scanner.nextInt();
+					CakeCustomProduct.getFreshCreamList().get(userIndex-1).count = changeCount;
+					break;
+				case 3:
+					productListPrint("Topping");
+					System.out.println("변경을 원하는 토핑번호를 입력해주세요: ");
+					userIndex = scanner.nextInt();
+					System.out.println("재고값을 입력해주세요: ");
+					changeCount = scanner.nextInt();
+					CakeCustomProduct.getToppingList().get(userIndex-1).count = changeCount;
+					break;
+				case 4:
+					System.out.println("재고변경을 종료합니다.");
+					productListPrint();
+					return;
+				default:
+					System.out.println("올바른 입력값이 아닙니다.");
+					break;
+				}
+			} catch (Exception e) {
+				System.out.println("올바른 입력값이 아닙니다.");
+			}
 
-        }
-    }
+		}
+	}
 
     /**
      * 판매상태 (주문완료한 사용자 출력)
@@ -840,5 +837,36 @@ public class CakeCustomShop implements StoreOrderSystem {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * 제품 리스트 출력
+     * @param 조하선
+     */
+    private void productListPrint(String product) {
+		int indext = 0;
+		switch (product) {
+		case "Sheet":
+			for(Sheet sheet : CakeCustomProduct.getSheetList()) {
+				System.out.print("["+(++indext)+"]");
+				System.out.println(sheet);
+			}
+			break;
+		case "FreshCream":
+			for(FreshCream freshCream : CakeCustomProduct.getFreshCreamList()) {
+				System.out.print("["+(++indext)+"]");
+				System.out.println(freshCream);
+			}
+			break;
+			
+		case "Topping":
+			for(Topping topping : CakeCustomProduct.getToppingList()) {
+				System.out.print("["+(++indext)+"]");
+				System.out.println(topping);
+			}
+			break;
+		default:
+			break;
+		}
+	}
 
 }
