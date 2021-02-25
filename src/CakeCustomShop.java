@@ -173,7 +173,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 			}
 			compare = dayBuy.compareTo(dayPickUp);
 			if (compare > 0) {
-				System.out.println("날짜가 올바르지 않습니다.");
+				System.out.println("날짜가 올바르지 않습니다. 현재 날짜나 그 이후로 설정해 주시기 바랍니다.");
 				continue;
 			} else {
 				break;
@@ -222,7 +222,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 			scanner.nextLine();
 			Custom userCustom = nowUser.getUserCustom().get(userChoice - 1);
 			while (true) {
-				System.out.println("[1]시트변경 [2]생크림변경 [3]토핑변경 [4]초 갯수 변경 [5]폭죽 갯수 변경 [6]픽업 날짜 변경 [7] 변경 취소");
+				System.out.println("[1]시트변경 [2]생크림변경 [3]토핑변경 [4]초 갯수 변경 [5]폭죽 갯수 변경 [6]픽업 날짜 변경 [7] 돌아가기");
 				userChoice = scanner.nextInt();
 				scanner.nextLine();
 				switch (userChoice) {
@@ -344,7 +344,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 						}
 						compare = dayBuy.compareTo(dayPickUp);
 						if (compare > 0) {
-							System.out.println("날짜가 올바르지 않습니다.");
+							System.out.println("날짜가 올바르지 않습니다. 현재 날짜나 그 이후로 설정해 주시기 바랍니다.");
 							continue;
 						} else {
 							break;
@@ -424,7 +424,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 		System.out.println("픽업하실 주문번호를 입력해주세요: ");
 		for (Custom userCustom : userCustomList) {
 			System.out.print("[" + (++index) + "]");
-			System.out.println(userCustom);
+			System.out.println(userCustom.changeReservationtoString());
 		}
 
 		int userChoice = Integer.parseInt(scanner.nextLine());
@@ -488,7 +488,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 			}
 			compare = dayBuy.compareTo(dayPickUp);
 			if (compare > 0) {
-				System.out.println("날짜가 올바르지 않습니다.");
+				System.out.println("날짜가 올바르지 않습니다. 현재 날짜나 그 이후로 설정해 주시기 바랍니다.");
 				continue;
 			} else {
 				break;
@@ -766,7 +766,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 		int userChoice = 0;
 
 		do {
-			System.out.println("[1] 회원가입 [2] 로그인");
+			System.out.println("[1] 회원가입 [2] 로그인 [3] 시스템 종료");
 			userChoice = scanner.nextInt();
 			scanner.nextLine();
 		} while (userChoice > 3 || userChoice < 1);
@@ -789,6 +789,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 
 		case 3:
 			// 시스템 종료
+		    System.out.println("이용해 주셔서 감사합니다.");
 			System.exit(0);
 		}
 

@@ -51,11 +51,11 @@ public class JoinMenberShip {
      */
     public UserInfo userJoin() {
 
-        System.out.print("id : ");
+        System.out.print("ID : ");
         String id = scanner.nextLine();
 
         while (!isValidId(id)) {
-            System.out.println("아이디 형식이 잘 못 되었습니다.");
+            System.out.println("아이디 형식이 잘못 되었습니다. 첫 글자는 영문으로 시작하고 6글자 이상 입력해주십시오.");
             System.out.println("ex) abcd1234");
             id = scanner.nextLine();
         }
@@ -72,7 +72,7 @@ public class JoinMenberShip {
         String password = scanner.nextLine();
 
         while (!isValidPwd(password)) {
-            System.out.println("비밀번호에 공백을 넣으실 수 없습니다");
+            System.out.println("비밀번호에 공백을 넣을 수 없고 8자리 이상 입력해주십시오.");
             password = scanner.nextLine();
         }
 
