@@ -67,21 +67,13 @@ public class CakeCustomShop implements StoreOrderSystem {
 
         choiceSheet = CakeCustomProduct.getSheetList().get(userChoice - 1);
         --choiceSheet.count;
-//        String userChoicestr = scanner.nextLine();
-//        for (Sheet sheet : CakeCustomProduct.getSheetList()) {
-//            if (userChoicestr.equals(sheet.name)) {
-//                choiceSheet = sheet;
-//                balance += choiceSheet.price;
-//                choiceSheet.count--;
-//                break;
-//            }
-//        }
+
 
         // 생크림 만들기
         forcount = 0;
         System.out.println("생크림를 골라주세요");
         for (FreshCream freshcream : CakeCustomProduct.getFreshCreamList()) {
-            System.out.println("[" + ++forcount + "]번 시트 이름: " + freshcream.name + " 가격: " + freshcream.price + " 원");
+            System.out.println("[" + ++forcount + "]번 생크림 이름: " + freshcream.name + " 가격: " + freshcream.price + " 원");
         }
         userChoice = Integer.parseInt(scanner.nextLine());
 
@@ -97,7 +89,7 @@ public class CakeCustomShop implements StoreOrderSystem {
         forcount = 0;
         System.out.println("토핑을 골라주세요");
         for (Topping topping : CakeCustomProduct.getToppingList()) {
-            System.out.println("[" + ++forcount + "]번 시트 이름: " + topping.name + " 가격: " + topping.price + " 원");
+            System.out.println("[" + ++forcount + "]번 토핑 이름: " + topping.name + " 가격: " + topping.price + " 원");
         }
         userChoice = Integer.parseInt(scanner.nextLine());
 
@@ -121,6 +113,8 @@ public class CakeCustomShop implements StoreOrderSystem {
 
         // 가격책청
         priceSum = choicefreshcream.price + choiceSheet.price + choiceTopping.price;
+        
+        balance += priceSum;
 
         // 픽업 날짜 정하고 유효성 검사 및 Date 타입 변환 작업
         System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
@@ -210,6 +204,7 @@ public class CakeCustomShop implements StoreOrderSystem {
                     }
                     // userChoice를 인트로 변환후 인데스 값으로 찾기
                     userChoice = Integer.parseInt(scanner.nextLine());
+                    balance -= userCustom.getSheet().price;
                     userCustom.getSheet().count++;
 
                     while (userChoice < 1 || userChoice > CakeCustomProduct.getSheetList().size()) {
@@ -219,20 +214,9 @@ public class CakeCustomShop implements StoreOrderSystem {
 
                     changesheet = CakeCustomProduct.getSheetList().get(userChoice - 1);
                     changesheet.count--;
-
+                    balance += changesheet.price;
                     userCustom.setSheet(changesheet);
-                    // 다시추가
-//                            userCustom.getSheet().count++;
-//                            for (Sheet sheet : CakeCustomProduct.getSheetList()) {
-//                                if (userChoicestr.equals(sheet.name)) {
-//                                    changesheet = sheet;
-//                                    changeCustom.setSheet(changesheet);
-//                                    changesheet.count--;
-//                                    
-//                                }
-//                            }
-
-                    // continue Loop_1;
+                    
                     break;
 
                 case 2:
@@ -246,18 +230,9 @@ public class CakeCustomShop implements StoreOrderSystem {
                                 + freshCream.price + " 원");
                     }
 
-//                            userChoicestr = scanner.nextLine();
-//                            userCustom.getFreshcream().count++;
-//                            for (FreshCream FreshCream : CakeCustomProduct.getFreshCreamList()) {
-//                                if (userChoicestr.equals(FreshCream.name)) {
-//                                    changeFreshCream = FreshCream;
-//                                    changeCustom.setFreshcream(changeFreshCream);
-//                                    FreshCream.count--;
-//                                    
-//                                }
-//                            }
 
                     userChoice = Integer.parseInt(scanner.nextLine());
+                    balance -= userCustom.getFreshcream().price;
                     userCustom.getFreshcream().count++;
                     while (userChoice < 1 || userChoice > CakeCustomProduct.getFreshCreamList().size()) {
                         System.out.println("제대로 골라 주세요");
@@ -266,9 +241,10 @@ public class CakeCustomShop implements StoreOrderSystem {
 
                     changeFreshCream = CakeCustomProduct.getFreshCreamList().get(userChoice - 1);
                     changeFreshCream.count--;
+                    balance += changeFreshCream.price;
                     userCustom.setFreshcream(changeFreshCream);
 
-                    // continue Loop_1;
+                    
                     break;
 
                 case 3:
@@ -279,20 +255,12 @@ public class CakeCustomShop implements StoreOrderSystem {
                     System.out.println("변경할 토핑를 골라주세요");
                     for (Topping topping : CakeCustomProduct.getToppingList()) {
                         System.out.println(
-                                "[" + (++forcount) + "]번 토핑2 이름: " + topping.name + " 가격: " + topping.price + " 원");
+                                "[" + (++forcount) + "]번 토핑 이름: " + topping.name + " 가격: " + topping.price + " 원");
                     }
-//                            userChoicestr = scanner.nextLine();
-//                            userCustom.getTopping().count++;
-//                            for (Topping topping : CakeCustomProduct.getToppingList()) {
-//                                if (userChoicestr.equals(topping.name)) {
-//                                    changeTopping = topping;
-//                                    changeCustom.setTopping(changeTopping);
-//                                    changeTopping.count--;
-//                                    
-//                                }
-//                            }
+
 
                     userChoice = Integer.parseInt(scanner.nextLine());
+                    balance -= userCustom.getTopping().price;
                     userCustom.getTopping().count++;
                     while (userChoice < 1 || userChoice > CakeCustomProduct.getToppingList().size()) {
                         System.out.println("제대로 골라주세요");
@@ -300,9 +268,10 @@ public class CakeCustomShop implements StoreOrderSystem {
                     }
                     changeTopping = CakeCustomProduct.getToppingList().get(userChoice - 1);
                     changeTopping.count--;
+                    balance += changeTopping.price;
                     userCustom.setTopping(changeTopping);
 
-                    // continue Loop_1;
+                    
                     break;
                 case 4:
                     // 초 갯수 변경
@@ -311,7 +280,6 @@ public class CakeCustomShop implements StoreOrderSystem {
                     userChoice = Integer.parseInt(scanner.nextLine());
                     userCustom.setCandle(userChoice);
                     break;
-                // continue Loop_1;
 
                 case 5:
 
@@ -320,7 +288,6 @@ public class CakeCustomShop implements StoreOrderSystem {
                     userChoice = Integer.parseInt(scanner.nextLine());
                     userCustom.setFireCracker(userChoice);
                     break;
-                // continue Loop_1;
 
                 case 6:
 
@@ -354,7 +321,6 @@ public class CakeCustomShop implements StoreOrderSystem {
                     }
                     userCustom.setPickupDate(dayPickUp);
                     break;
-                // continue Loop_1;
 
                 case 7:
                     System.out.println("종료합니다");
@@ -362,7 +328,6 @@ public class CakeCustomShop implements StoreOrderSystem {
                 default:
                     System.out.println("잘못 입력하셨습니다.");
                     break;
-                // continue Loop_1;
                 }
 
             } // while end
