@@ -192,6 +192,7 @@ public class CakeCustomShop implements StoreOrderSystem {
                             // userChoice를 인트로 변환후 인데스 값으로 찾기
                             userChoice = Integer.parseInt(scanner.nextLine());
                             userCustom.getSheet().count++;
+                            
                             while (userChoice < 1 || userChoice > CakeCustomProduct.getSheetList().size()) {
                                 System.out.println("생크림을 제대로 골라주세요");
                                 userChoice = Integer.parseInt(scanner.nextLine());
@@ -244,7 +245,7 @@ public class CakeCustomShop implements StoreOrderSystem {
                                 userChoice = Integer.parseInt(scanner.nextLine());
                             }
 
-                            changeFreshCream = CakeCustomProduct.getFreshCreamList().get(userChoiceNum - 1);
+                            changeFreshCream = CakeCustomProduct.getFreshCreamList().get(userChoice - 1);
                             changeFreshCream.count--;
                             userCustom.setFreshcream(changeFreshCream);
 
@@ -278,7 +279,7 @@ public class CakeCustomShop implements StoreOrderSystem {
                                 System.out.println("제대로 골라주세요");
                                 userChoice = Integer.parseInt(scanner.nextLine());
                             }
-                            changeTopping = CakeCustomProduct.getToppingList().get(userChoiceNum - 1);
+                            changeTopping = CakeCustomProduct.getToppingList().get(userChoice - 1);
                             changeTopping.count--;
                             userCustom.setTopping(changeTopping);
 
@@ -287,20 +288,19 @@ public class CakeCustomShop implements StoreOrderSystem {
                         case 4:
                             // 초 갯수 변경
 
-                            int userChoiceint = 0;
+                            
                             System.out.println("초의 갯수를 정해주세요");
-                            userChoiceint = scanner.nextInt();
-                            changeCustom.setCandle(userChoiceNum);
+                            userChoice = Integer.parseInt(scanner.nextLine());
+                            changeCustom.setCandle(userChoice);
                             break;
                         // continue Loop_1;
 
                         case 5:
 
                             // 폭죽 갯수 변경
-                            userChoiceint = 0;
                             System.out.println("폭죽의 갯수를 정해주세요");
-                            userChoiceint = scanner.nextInt();
-                            changeCustom.setFireCracker(userChoiceNum);
+                            userChoice = Integer.parseInt(scanner.nextLine());
+                            changeCustom.setFireCracker(userChoice);
                             break;
                         // continue Loop_1;
 
@@ -308,7 +308,6 @@ public class CakeCustomShop implements StoreOrderSystem {
 
                             // 픽업 날짜 변경
                             System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
-                            scanner.nextLine();
                             Date dayBuy = null;
                             Date dayPickUp = null;
                             int compare = 0;
