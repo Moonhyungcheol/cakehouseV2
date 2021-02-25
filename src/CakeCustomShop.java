@@ -167,21 +167,20 @@ public class CakeCustomShop implements StoreOrderSystem {
         System.out.println("1: 예 2: 아니요");
         int userChoiceNum = scanner.nextInt();
         if (userChoiceNum == 1) {
-            for (Custom userCustom : nowUser.getUserCustom()) {
+        	int index = 0;
+        	for (Custom userCustom : nowUser.getUserCustom()) {
+        		System.out.print("["+(++index)+"]");
                 System.out.println(userCustom);
-                System.out.println("해당 케이크주문을 변경하시겠습니까?1. 예 2. 아니요");
-
-                int userChoice = scanner.nextInt();
-                scanner.nextLine();
-
-                if (userChoice == 1) {
-                    while (true) {
-
+        	}
+        	System.out.println("변경하실 케이크의 주문번호를 입력해주세요: ");
+            int userChoice = scanner.nextInt();
+            scanner.nextLine();
+            Custom userCustom = nowUser.getUserCustom().get(userChoice-1);
                         Custom changeCustom = userCustom;
-
-                        System.out.println("[1]시트변경 [2]생크림변경 [3]토핑변경 [4]초 갯수 변경 [5]폭죽 갯수 변경 [6]픽업 날짜 변경 [7] 변경 취소");
-                        userChoice = scanner.nextInt();
-                        scanner.nextLine();
+            while(true) {
+                System.out.println("[1]시트변경 [2]생크림변경 [3]토핑변경 [4]초 갯수 변경 [5]폭죽 갯수 변경 [6]픽업 날짜 변경 [7] 변경 취소");
+                userChoice = scanner.nextInt();
+                scanner.nextLine();
                         switch (userChoice) {
 
                         case 1:
@@ -352,11 +351,9 @@ public class CakeCustomShop implements StoreOrderSystem {
                         // continue Loop_1;
                         }
 
-                    } // while end
-                } else {
-                    return;
-                }
-            }
+            }// while end
+                
+            
         }
     }
 
