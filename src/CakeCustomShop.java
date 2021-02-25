@@ -365,25 +365,39 @@ public class CakeCustomShop implements StoreOrderSystem {
 
     }
 
+    /**
+     * 
+     * 픽업하기
+     * 
+     * @author 문형철
+     */
     @Override
     public void pickUp() {
 
-        if (nowUser.getUserCustom().size() == 0) {
-            System.out.println("픽업목록이 없습니다. 목록으로 돌아갑니다.");
+    	List<Custom> nowUserCustom = nowUser.getUserCustom();
+    	List<Custom> userCustomList = new ArrayList<>();
+    	
+    	for(Custom custom : nowUserCustom) {
+    		if(!custom.isReservationStatus()) {
+    			userCustomList.add(custom);
+    		}
+    	}
+    	
+        if (userCustomList.size() == 0) {
+            System.out.println("픽업정보가 없습니다. 목록으로 돌아갑니다.");
             return;
         }
 
         // 픽업하기
         int index = 0;
         System.out.println("픽업하실 주문번호를 입력해주세요: ");
-        for (Custom userCustom : nowUser.getUserCustom()) {
-            if (userCustom.isReservationStatus()) {
-                continue;
-            }
+        for (Custom userCustom : userCustomList) {
             System.out.print("[" + (++index) + "]");
             System.out.println(userCustom);
         }
+        
         int userChoice = Integer.parseInt(scanner.nextLine());
+        
         while (userChoice < 1 || userChoice > index) {
             System.out.println("잘못된 번호입니다. 다시 선택해 주세요.");
             userChoice = Integer.parseInt(scanner.nextLine());
@@ -392,13 +406,13 @@ public class CakeCustomShop implements StoreOrderSystem {
         // 날짜체크
         Date today = Calendar.getInstance().getTime();
 
-        if (today.compareTo(nowUser.getUserCustom().get(userChoice - 1).getPickupDate()) < 0) {
+        if (today.compareTo(userCustomList.get(userChoice - 1).getPickupDate()) < 0) {
             System.out.println("아직 픽업하실 수 없습니다.");
             pickUp();
             return;
         }
 
-        nowUser.getUserCustom().get(userChoice - 1).setReservationStatus(true);
+        userCustomList.get(userChoice - 1).setReservationStatus(true);
         System.out.println("픽업완료되었습니다.");
     }
 
