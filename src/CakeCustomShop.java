@@ -668,6 +668,10 @@ public class CakeCustomShop implements StoreOrderSystem {
 			String password = scanner.nextLine();
 			nowUser = joinmembership.userLogin(id, password);
 			break;
+			
+		case 3:
+			//시스템 종료
+			System.exit(0);
 		}
 
 		if (nowUser == null) {
