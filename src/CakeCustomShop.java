@@ -446,84 +446,84 @@ public class CakeCustomShop implements StoreOrderSystem {
 		userCustomList.get(userChoice - 1).setReservationStatus(true);
 		System.out.println("픽업완료되었습니다.");
 	}
-	
+
 	public void randomCake() {
-        Sheet randomSheet = null;
-        FreshCream randomfreshcream = null;
-        Topping randomTopping = null;
-        int choiceCandleNum = 0;
-        int fireCracker = 0;
-        int priceSum = 0;
-        Random random = new Random();
-        
-        System.out.println("초의 갯수를 정해주세요");
-        int userChoiceint = Integer.parseInt(scanner.nextLine());
-        choiceCandleNum = userChoiceint;
+		Sheet randomSheet = null;
+		FreshCream randomfreshcream = null;
+		Topping randomTopping = null;
+		int choiceCandleNum = 0;
+		int fireCracker = 0;
+		int priceSum = 0;
+		Random random = new Random();
 
-        // 폭죽 갯수 정하기
-        System.out.println("폭죽의 갯수를 정해주세요");
-        userChoiceint = Integer.parseInt(scanner.nextLine());
-        fireCracker = userChoiceint;
+		System.out.println("초의 갯수를 정해주세요");
+		int userChoiceint = Integer.parseInt(scanner.nextLine());
+		choiceCandleNum = userChoiceint;
 
-        
+		// 폭죽 갯수 정하기
+		System.out.println("폭죽의 갯수를 정해주세요");
+		userChoiceint = Integer.parseInt(scanner.nextLine());
+		fireCracker = userChoiceint;
 
-        // 픽업 날짜 정하고 유효성 검사 및 Date 타입 변환 작업
-        System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
+		// 픽업 날짜 정하고 유효성 검사 및 Date 타입 변환 작업
+		System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
 
-        Date dayBuy = null;
-        Date dayPickUp = null;
-        int compare = 0;
+		Date dayBuy = null;
+		Date dayPickUp = null;
+		int compare = 0;
 
-        // pickUpDate 형식 검사
-        while (true) {
-            String pickUpDate = scanner.nextLine();
-            if (!datePattern.matcher(pickUpDate).matches()) {
-                System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
-                continue;
-            }
-            try {
-                dayBuy = sdf.parse(buyDate);
-                dayPickUp = sdf.parse(pickUpDate);
-            } catch (Exception e) {
-                e.printStackTrace();
-                scanner = new Scanner(System.in);
-            }
-            compare = dayBuy.compareTo(dayPickUp);
-            if (compare > 0) {
-                System.out.println("날짜가 올바르지 않습니다.");
-                continue;
-            } else {
-                break;
-            }
-        }
-        
-        // 랜덤시트 만들기
-        randomSheet = CakeCustomProduct.getSheetList().get(random.nextInt(CakeCustomProduct.getSheetList().size()));
-        --randomSheet.count;
-        balance += randomSheet.price;
-        
-        //랜덤생크림 만들기
-        randomfreshcream = CakeCustomProduct.getFreshCreamList().get(random.nextInt(CakeCustomProduct.getFreshCreamList().size()));
-        --randomfreshcream.count;
-        balance += randomfreshcream.price;
-        
-        //랜덤토핑 만들기
-        randomTopping = CakeCustomProduct.getToppingList().get(random.nextInt(CakeCustomProduct.getToppingList().size()));
-        --randomTopping.count;
-        balance += randomTopping.count;
-        
-        priceSum = randomSheet.price + randomfreshcream.price + randomTopping.price;
-        // 가격책청
-        balance += priceSum;
-        
-        boolean ReservationStatus = false;
-        Custom custom = new Custom(randomSheet, randomfreshcream, randomTopping, choiceCandleNum, fireCracker, priceSum,
-                dayBuy, ReservationStatus, dayPickUp);
-        nowUser.getUserCustom().add(custom);
-        orderUser.add(nowUser);
+		// pickUpDate 형식 검사
+		while (true) {
+			String pickUpDate = scanner.nextLine();
+			if (!datePattern.matcher(pickUpDate).matches()) {
+				System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
+				continue;
+			}
+			try {
+				dayBuy = sdf.parse(buyDate);
+				dayPickUp = sdf.parse(pickUpDate);
+			} catch (Exception e) {
+				e.printStackTrace();
+				scanner = new Scanner(System.in);
+			}
+			compare = dayBuy.compareTo(dayPickUp);
+			if (compare > 0) {
+				System.out.println("날짜가 올바르지 않습니다.");
+				continue;
+			} else {
+				break;
+			}
+		}
 
-        System.out.println(custom.customCakePrint());
-    }
+		// 랜덤시트 만들기
+		randomSheet = CakeCustomProduct.getSheetList().get(random.nextInt(CakeCustomProduct.getSheetList().size()));
+		--randomSheet.count;
+		balance += randomSheet.price;
+
+		// 랜덤생크림 만들기
+		randomfreshcream = CakeCustomProduct.getFreshCreamList()
+				.get(random.nextInt(CakeCustomProduct.getFreshCreamList().size()));
+		--randomfreshcream.count;
+		balance += randomfreshcream.price;
+
+		// 랜덤토핑 만들기
+		randomTopping = CakeCustomProduct.getToppingList()
+				.get(random.nextInt(CakeCustomProduct.getToppingList().size()));
+		--randomTopping.count;
+		balance += randomTopping.count;
+
+		priceSum = randomSheet.price + randomfreshcream.price + randomTopping.price;
+		// 가격책청
+		balance += priceSum;
+
+		boolean ReservationStatus = false;
+		Custom custom = new Custom(randomSheet, randomfreshcream, randomTopping, choiceCandleNum, fireCracker, priceSum,
+				dayBuy, ReservationStatus, dayPickUp);
+		nowUser.getUserCustom().add(custom);
+		orderUser.add(nowUser);
+
+		System.out.println(custom.customCakePrint());
+	}
 
 	/**
 	 * 제품추가
@@ -743,10 +743,10 @@ public class CakeCustomShop implements StoreOrderSystem {
 	 * @author 조하선
 	 */
 	public void orderUserPrint() {
-		
+
 		Utils utils = new Utils();
 		orderUser = utils.load("OrderUserList.txt");
-		
+
 		System.out.println("주문완료한 사용자 목록입니다.");
 		for (UserInfo userInfo : orderUser) {
 			System.out.println(userInfo);
@@ -786,9 +786,9 @@ public class CakeCustomShop implements StoreOrderSystem {
 			String password = scanner.nextLine();
 			nowUser = joinmembership.userLogin(id, password);
 			break;
-			
+
 		case 3:
-			//시스템 종료
+			// 시스템 종료
 			System.exit(0);
 		}
 
@@ -802,7 +802,6 @@ public class CakeCustomShop implements StoreOrderSystem {
 			managerMenu();
 		} else if (nowUser != null) {
 			// 일반 유저 메뉴를 보여준다.
-			orderUser.add(nowUser);
 			userMenu();
 		}
 
@@ -849,7 +848,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 			case 5:
 				orderUserPrint();
 				break;
-				
+
 			case 6:
 				start();
 				return;
@@ -872,7 +871,15 @@ public class CakeCustomShop implements StoreOrderSystem {
 			switch (userChoice) {
 			// 주문하기
 			case 1:
-				order();
+				System.out.println("[1] 평범한 커스텀 주문 [2] 운명의 데스티니 주문");
+				int userRandomChoice = Integer.parseInt(scanner.nextLine());
+
+				if (userRandomChoice == 1) {
+					order();
+				} else {
+					randomCake();
+				}
+
 				break;
 
 			// 예약조회
