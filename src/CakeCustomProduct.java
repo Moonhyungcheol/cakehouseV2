@@ -49,42 +49,39 @@ public class CakeCustomProduct implements Serializable {
 			for (Sheet sheet : sheetList) {
 				if (sheet.name.equals(name)) {
 					sheetList.remove(sheet);
+					System.out.println("["+name+"]" + " 제품제거에 성공하였습니다.");
 					count++;
 				}
 			}
 			if (count == 0) {
 				countCheck(name);
-			} else {
-				System.out.println(name + " 제거완료");
-			}
+			} 
 			break;
 
 		case "FreshCream":
 			for (FreshCream freshCream : freshCreamList) {
 				if (freshCream.name.equals(name)) {
 					freshCreamList.remove(freshCream);
+					System.out.println("["+name+"]" + " 제품제거에 성공하였습니다.");
 					count++;
 				}
 			}
 			if (count == 0) {
 				countCheck(name);
-			} else {
-				System.out.println(name + " 제거완료");
-			}
+			} 
 			break;
 
 		case "Topping":
 			for (Topping topping : toppingList) {
 				if (topping.name.equals(name)) {
 					toppingList.remove(topping);
+					System.out.println("["+name+"]" + " 제품제거에 성공하였습니다.");
 					count++;
 				}
 			}
 			if (count == 0) {
 				countCheck(name);
-			} else {
-				System.out.println(name + " 제거완료");
-			}
+			} 
 			break;
 
 		default:

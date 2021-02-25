@@ -17,6 +17,10 @@ public class Product implements Serializable{
     public String toString() {
         return "Product [name=" + name + ", price=" + price + ", count=" + count + "]";
     }
+
+	public String getName() {
+		return name;
+	}
     
     
 

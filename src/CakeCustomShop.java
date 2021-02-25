@@ -195,7 +195,6 @@ public class CakeCustomShop implements StoreOrderSystem {
 			int userChoice = scanner.nextInt();
 			scanner.nextLine();
 			Custom userCustom = nowUser.getUserCustom().get(userChoice - 1);
-			Custom changeCustom = userCustom;
 			while (true) {
 				System.out.println("[1]시트변경 [2]생크림변경 [3]토핑변경 [4]초 갯수 변경 [5]폭죽 갯수 변경 [6]픽업 날짜 변경 [7] 변경 취소");
 				userChoice = scanner.nextInt();
@@ -524,43 +523,46 @@ public class CakeCustomShop implements StoreOrderSystem {
 	 * @author 조하선
 	 */
 	public void deleteProduct() {
-		System.out.println("=== 제품삭제 ===");
-		System.out.println("== 현재 등록된 상품 목록 ==");
-		productListPrint();
-		while (true) {
-			int count = 0;
-			System.out.println("삭제할 상품 분류를 선택해주세요.");
-			System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
-			int userChoice = scanner.nextInt();
-			scanner.nextLine();
-			switch (userChoice) {
-			case 1:
-				System.out.println("삭제할 시트명을 입력해주세요.");
-				String deleteProductName = scanner.nextLine();
-				CakeCustomProduct.productDel("Sheet", deleteProductName);
-				break;
-			case 2:
-				System.out.println("삭제할 생크림명을 입력해주세요.");
-				deleteProductName = scanner.nextLine();
-				CakeCustomProduct.productDel("FreshCream", deleteProductName);
-				break;
+        System.out.println("=== 제품삭제 ===");
+        System.out.println("== 현재 등록된 상품 목록 ==");
+        productListPrint();
+        while (true) {
+            System.out.println("삭제할 상품 분류를 선택해주세요.");
+            System.out.println("[1] 시트 [2] 생크림 [3] 토핑 [4] 종료");
+            try{
+            	int userChoice = scanner.nextInt();
+	            scanner.nextLine();
+	            switch (userChoice) {
+	            case 1:
+	                System.out.println("삭제할 시트명을 입력해주세요.");
+	                String deleteProductName = scanner.nextLine();
+	                CakeCustomProduct.productDel("Sheet", deleteProductName);
+	                break;
+	            case 2:
+	                System.out.println("삭제할 생크림명을 입력해주세요.");
+	                deleteProductName = scanner.nextLine();
+	                CakeCustomProduct.productDel("FreshCream", deleteProductName);
+	                break;
+	
+	            case 3:
+	                System.out.println("삭제할 토핑명을 입력해주세요.");
+	                deleteProductName = scanner.nextLine();
+	                CakeCustomProduct.productDel("Topping", deleteProductName);
+	                break;
+	            case 4:
+	                System.out.println("제품 삭제를 종료합니다.");
+	                productListPrint();
+	                return;
+	            default:
+	                System.out.println("올바른 입력값이 아닙니다.");
+	                break;
+	            }
+            }catch (Exception e) {
+            	e.getMessage();
+            }
+        }
 
-			case 3:
-				System.out.println("삭제할 토핑명을 입력해주세요.");
-				deleteProductName = scanner.nextLine();
-				CakeCustomProduct.productDel("Topping", deleteProductName);
-				break;
-			case 4:
-				System.out.println("제품 삭제를 종료합니다.");
-				productListPrint();
-				return;
-			default:
-				System.out.println("올바른 입력값이 아닙니다.");
-				break;
-			}
-		}
-
-	}
+    }
 
 	/**
 	 * 재고관리
@@ -664,6 +666,7 @@ public class CakeCustomShop implements StoreOrderSystem {
 		for (UserInfo userInfo : orderUser) {
 			System.out.println(userInfo);
 		}
+		System.out.println("현재 잔고: "+this.balance);
 	}
 
 	/**
