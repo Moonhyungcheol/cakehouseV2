@@ -1,6 +1,6 @@
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class Custom implements Serializable{
 	private Sheet sheet;
@@ -99,12 +99,23 @@ public class Custom implements Serializable{
 		this.pickupDate = pickupDate;
 	}
 	
-	public String customCakePrint() {
-	    return "   ~~~~~두~~~둥~~~등~~~장~~~~~~~\n"
+	   
+    public String getUserRservationDate() {
+        SimpleDateFormat sdfrd = new SimpleDateFormat("yyyy-MM-dd");
+        return sdfrd.format(reservationDate);
+    }
+    
+    public String getUserPickUpDate() {
+        SimpleDateFormat sdfpd = new SimpleDateFormat("yyyy-MM-dd");
+        return sdfpd.format(pickupDate);
+    }
+    
+    public String customCakePrint() {
+        return "   ~~~~~두~~~둥~~~등~~~장~~~~~~~\n"
                 + "   ++++++케이크 완성!!!++++++\n"
                 + ""
-                + "예약하신 날짜: " + pickupDate + "\n"
-                + "주문하신 날짜: " + reservationDate + "\n"
+                + "예약하신 날짜: " + getUserRservationDate() + "\n"
+                + "피업하실 날짜: " + getUserPickUpDate() + "\n"
                 + "   *                        \n"
                 + "            *    *        *\n"
                 + "       *              *    \n"
@@ -122,13 +133,54 @@ public class Custom implements Serializable{
                 + "   ~~~~~~~~freshcream~~~~~~~~    ->  주문하신 생크림: "+ freshcream.getName() + "\n"
                 + "   ==========================\n"
                 + "   ==========sheet===========    ->  주문하신 시트" + sheet.getName() + "\n"
-                + "   =========================="
+                + "   ==========================\n"
                 + ""
                 + "                                     커스텀 케이크 가격: " + priceSum + "원\n"
                 + ""
                 + ""
                 + "";
-	}
+    }
+    public String reservationcustomCakePrint() {
+        return "예약하실 날짜: " + getUserRservationDate() + "\n"
+                + "픽업하실 날짜: " + getUserPickUpDate() + "\n"
+                + "   *                        \n"
+                + "            *    *        *\n"
+                + "       *              *    \n"
+                + "                 *      * \n"
+                + "    *        *             \n"
+                + "                     __   \n"
+                + "          *          \\ \\\n"
+                + "      *       *       --         ->  주문하신 폭죽 갯수: " + fireCracker + "\n"
+                + "                       \\ \n"
+                + "                          \n"
+                + "   <> <> <>   <>    <> <> <>     ->  주문하신 초 갯수: " + candle + "\n"
+                + "   || || ||   ||    || || ||\n"
+                + "   ** ** ** topping ** ** **     ->  주문하신 토핑: " + topping.getName() +"\n"
+                + "   ~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "   ~~~~~~~~freshcream~~~~~~~~    ->  주문하신 생크림: "+ freshcream.getName() + "\n"
+                + "   ==========================\n"
+                + "   ==========sheet===========    ->  주문하신 시트" + sheet.getName() + "\n"
+                + "   ==========================\n"
+                + ""
+                + ""
+                + "                                     커스텀 케이크 가격: " + priceSum + "원\n"
+                + ""
+                + ""
+                + "";
+    }
+    
+    public String changeReservationtoString() {
+        
+        return "선택하신 시트: " + sheet.name + "\n"
+                + "선택하신 생크림: " + freshcream.name + "\n"
+                + "선택하신 토핑: " + topping.name + "\n"
+                + "선택하신 초의 갯수: " + candle + "\n"
+                + "선택하신 폭죽의 갯수: " + fireCracker + "\n"
+                + "예약하신 날짜: " + getUserRservationDate() + "\n"
+                + "픽업하실 날짜: " + getUserPickUpDate() + "\n"
+                + "총 결재 금액: " + priceSum
+                + "";
+    }
 
     @Override
     public String toString() {
