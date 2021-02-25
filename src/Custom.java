@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Custom {
+public class Custom implements Serializable{
 	private Sheet sheet;
 	private FreshCream freshcream;
 	private Topping topping;

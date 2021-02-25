@@ -25,6 +25,40 @@ public class CakeCustomShop implements StoreOrderSystem {
 
 		/**************** TEST CODE ************************/
 
+//		UserInfo user1 = new UserInfo();
+//		UserInfo user2 = new UserInfo();
+//		UserInfo user3 = new UserInfo();
+//		UserInfo admin = new UserInfo();
+//		
+//		user1.setId("testUser1");
+//		user1.setPassword("testUser1");
+//		user1.setName("김");
+//		user1.setPhoneNumber("01012341234");
+//		
+//		user2.setId("testUser2");
+//		user2.setPassword("testUser2");
+//		user2.setName("이");
+//		user2.setPhoneNumber("01012341234");
+//		
+//		user3.setId("testUser3");
+//		user3.setPassword("testUser3");
+//		user3.setName("박");
+//		user3.setPhoneNumber("01012341234");
+//		
+//		admin.setId("admin");
+//		admin.setPassword("admin");
+//		admin.setName("관리자");
+//		admin.setPhoneNumber("01012341234");
+//		
+//		
+//		
+//		
+//		joinmembership.addJoinUser(user1);
+//		joinmembership.addJoinUser(user2);
+//		joinmembership.addJoinUser(user3);
+//		joinmembership.addJoinUser(admin);
+//		
+//		utils.save("getJoinUser", joinmembership.getJoinUser());
 		Utils utils = new Utils();
 		joinmembership.setJoinUser(utils.load("getJoinUser"));
 		List<Sheet> sheetlist = utils.load("SheetList.txt");
@@ -629,6 +663,10 @@ public class CakeCustomShop implements StoreOrderSystem {
 	 * @author 조하선
 	 */
 	public void orderUserPrint() {
+		
+		Utils utils = new Utils();
+		orderUser = utils.load("OrderUserList.txt");
+		
 		System.out.println("주문완료한 사용자 목록입니다.");
 		for (UserInfo userInfo : orderUser) {
 			System.out.println(userInfo);
@@ -779,6 +817,8 @@ public class CakeCustomShop implements StoreOrderSystem {
 
 			// 로그아웃
 			case 6:
+				Utils utils = new Utils();
+				utils.save("OrderUserList.txt", orderUser);
 				start();
 				return;
 

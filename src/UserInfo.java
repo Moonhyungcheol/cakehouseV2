@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserInfo extends JoinMenberShip implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 982901824462847230L;
 	private String id;
 	private String password;
 	private String name;
@@ -60,4 +64,12 @@ public class UserInfo extends JoinMenberShip implements Serializable{
 		this.phoneNumber = phoneNumber;
 	}
 
+	@Override
+	public String toString() {
+		return "UserInfo [id=" + id + ", password=" + password + ", name=" + name + ", phoneNumber=" + phoneNumber
+				+ ", userCustom=" + userCustom + "]";
+	}
+	
+	
+	
 }
