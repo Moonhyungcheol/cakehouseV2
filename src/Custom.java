@@ -97,12 +97,49 @@ public class Custom {
 	public void setPickupDate(Date pickupDate) {
 		this.pickupDate = pickupDate;
 	}
-
-	@Override
-	public String toString() {
-		return "Custom [sheet=" + sheet + ", freshcream=" + freshcream + ", topping=" + topping + ", candle=" + candle
-				+ ", fireCracker=" + fireCracker + ", priceSum=" + priceSum + ", reservationDate=" + reservationDate
-				+ ", reservationStatus=" + reservationStatus + ", pickupDate=" + pickupDate + "]";
+	
+	public String customCakePrint() {
+	    return "   ~~~~~두~~~둥~~~등~~~장~~~~~~~\n"
+                + "   ++++++케이크 완성!!!++++++\n"
+                + ""
+                + "예약하신 날짜: " + pickupDate + "\n"
+                + "주문하신 날짜: " + reservationDate + "\n"
+                + "   *                        \n"
+                + "            *    *        *\n"
+                + "       *              *    \n"
+                + "                 *      * \n"
+                + "    *        *             \n"
+                + "                     __   \n"
+                + "          *          \\ \\\n"
+                + "      *       *       --         ->  주문하신 폭죽 갯수: " + fireCracker + "\n"
+                + "                       \\ \n"
+                + "                          \n"
+                + "   <> <> <>   <>    <> <> <>     ->  주문하신 초 갯수: " + candle + "\n"
+                + "   || || ||   ||    || || ||\n"
+                + "   ** ** ** topping ** ** **     ->  주문하신 토핑: " + topping.getName() +"\n"
+                + "   ~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "   ~~~~~~~~freshcream~~~~~~~~    ->  주문하신 생크림: "+ freshcream.getName() + "\n"
+                + "   ==========================\n"
+                + "   ==========sheet===========    ->  주문하신 시트" + sheet.getName() + "\n"
+                + "   =========================="
+                + ""
+                + "                                     커스텀 케이크 가격: " + priceSum + "원\n"
+                + ""
+                + ""
+                + "";
 	}
 
+    @Override
+    public String toString() {
+        return "Custom [sheet=" + sheet + ", freshcream=" + freshcream + ", topping=" + topping + ", candle=" + candle
+                + ", fireCracker=" + fireCracker + ", priceSum=" + priceSum + ", reservationDate=" + reservationDate
+                + ", reservationStatus=" + reservationStatus + ", pickupDate=" + pickupDate + "]";
+    }
+
+	
+	
+	
+	
+	
+	
 }
