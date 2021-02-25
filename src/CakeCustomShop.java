@@ -43,35 +43,35 @@ public class CakeCustomShop implements StoreOrderSystem {
 
 	}
 
-	/**
-	 * @author 안승주
-	 */
-	@Override
-	public void order() {
-		Sheet choiceSheet = null;
-		FreshCream choicefreshcream = null;
-		Topping choiceTopping = null;
-		int choiceCandleNum = 0;
-		int fireCracker = 0;
-		int priceSum = 0;
+	 /**
+     * @author 안승주
+     */
+    @Override
+    public void order() {
+        Sheet choiceSheet = null;
+        FreshCream choicefreshcream = null;
+        Topping choiceTopping = null;
+        int choiceCandleNum = 0;
+        int fireCracker = 0;
+        int priceSum = 0;
 
-		// 시트 만들기
-		forcount = 0;
-		System.out.println("시트를 골라주세요");
-		for (Sheet sheet : CakeCustomProduct.getSheetList()) {
-			System.out.println("[" + (++forcount) + "]번 시트 이름: " + sheet.name + " 가격: " + sheet.price + " 원");
-		}
+        // 시트 만들기
+        forcount = 0;
+        System.out.println("시트를 골라주세요");
+        for (Sheet sheet : CakeCustomProduct.getSheetList()) {
+            System.out.println("[" + (++forcount) + "]번 시트 이름: " + sheet.name + " 가격: " + sheet.price + " 원");
+        }
 
-		int userChoice = 0;
-		userChoice = Integer.parseInt(scanner.nextLine());
+        int userChoice = 0;
+        userChoice = Integer.parseInt(scanner.nextLine());
 
-		while (userChoice < 1 || userChoice > CakeCustomProduct.getSheetList().size()) {
-			System.out.println("시트를 제대로 골라주세요");
-			Integer.parseInt(scanner.nextLine());
-		}
+        while (userChoice < 1 || userChoice > CakeCustomProduct.getSheetList().size()) {
+            System.out.println("시트를 제대로 골라주세요");
+            Integer.parseInt(scanner.nextLine());
+        }
 
-		choiceSheet = CakeCustomProduct.getSheetList().get(userChoice - 1);
-		--choiceSheet.count;
+        choiceSheet = CakeCustomProduct.getSheetList().get(userChoice - 1);
+        --choiceSheet.count;
 //        String userChoicestr = scanner.nextLine();
 //        for (Sheet sheet : CakeCustomProduct.getSheetList()) {
 //            if (userChoicestr.equals(sheet.name)) {
@@ -82,88 +82,91 @@ public class CakeCustomShop implements StoreOrderSystem {
 //            }
 //        }
 
-		// 생크림 만들기
-		forcount = 0;
-		System.out.println("생크림를 골라주세요");
-		for (FreshCream freshcream : CakeCustomProduct.getFreshCreamList()) {
-			System.out.println("[" + ++forcount + "]번 시트 이름: " + freshcream.name + " 가격: " + freshcream.price + " 원");
-		}
-		userChoice = Integer.parseInt(scanner.nextLine());
+        // 생크림 만들기
+        forcount = 0;
+        System.out.println("생크림를 골라주세요");
+        for (FreshCream freshcream : CakeCustomProduct.getFreshCreamList()) {
+            System.out.println("[" + ++forcount + "]번 시트 이름: " + freshcream.name + " 가격: " + freshcream.price + " 원");
+        }
+        userChoice = Integer.parseInt(scanner.nextLine());
 
-		while (userChoice < 1 || userChoice > CakeCustomProduct.getFreshCreamList().size()) {
-			System.out.println("생크림을 제대로 골라주세요");
-			userChoice = Integer.parseInt(scanner.nextLine());
-		}
+        while (userChoice < 1 || userChoice > CakeCustomProduct.getFreshCreamList().size()) {
+            System.out.println("생크림을 제대로 골라주세요");
+            userChoice = Integer.parseInt(scanner.nextLine());
+        }
 
-		choicefreshcream = CakeCustomProduct.getFreshCreamList().get(userChoice - 1);
-		--choicefreshcream.count;
+        choicefreshcream = CakeCustomProduct.getFreshCreamList().get(userChoice - 1);
+        --choicefreshcream.count;
 
-		// 토핑 만들기
-		forcount = 0;
-		System.out.println("토핑을 골라주세요");
-		for (Topping topping : CakeCustomProduct.getToppingList()) {
-			System.out.println("[" + ++forcount + "]번 시트 이름: " + topping.name + " 가격: " + topping.price + " 원");
-		}
-		userChoice = Integer.parseInt(scanner.nextLine());
+        // 토핑 만들기
+        forcount = 0;
+        System.out.println("토핑을 골라주세요");
+        for (Topping topping : CakeCustomProduct.getToppingList()) {
+            System.out.println("[" + ++forcount + "]번 시트 이름: " + topping.name + " 가격: " + topping.price + " 원");
+        }
+        userChoice = Integer.parseInt(scanner.nextLine());
 
-		while (userChoice < 1 || userChoice > CakeCustomProduct.getToppingList().size()) {
-			System.out.println("토핑을 제대로 골라주세요");
-			userChoice = Integer.parseInt(scanner.nextLine());
-		}
+        while (userChoice < 1 || userChoice > CakeCustomProduct.getToppingList().size()) {
+            System.out.println("토핑을 제대로 골라주세요");
+            userChoice = Integer.parseInt(scanner.nextLine());
+        }
 
-		choiceTopping = CakeCustomProduct.getToppingList().get(userChoice - 1);
-		--choiceTopping.count;
+        choiceTopping = CakeCustomProduct.getToppingList().get(userChoice - 1);
+        --choiceTopping.count;
 
-		// 초 갯수 정하기
-		System.out.println("초의 갯수를 정해주세요");
-		int userChoiceint = Integer.parseInt(scanner.nextLine());
-		choiceCandleNum = userChoiceint;
+        // 초 갯수 정하기
+        System.out.println("초의 갯수를 정해주세요");
+        int userChoiceint = Integer.parseInt(scanner.nextLine());
+        choiceCandleNum = userChoiceint;
 
-		// 폭죽 갯수 정하기
-		System.out.println("폭죽의 갯수를 정해주세요");
-		userChoiceint = Integer.parseInt(scanner.nextLine());
-		fireCracker = userChoiceint;
+        // 폭죽 갯수 정하기
+        System.out.println("폭죽의 갯수를 정해주세요");
+        userChoiceint = Integer.parseInt(scanner.nextLine());
+        fireCracker = userChoiceint;
 
-		// 가격책청
-		priceSum = choicefreshcream.price + choiceSheet.price + choiceTopping.price;
+        // 가격책청
+        priceSum = choicefreshcream.price + choiceSheet.price + choiceTopping.price;
 
-		// 픽업 날짜 정하고 유효성 검사 및 Date 타입 변환 작업
-		System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
+        // 픽업 날짜 정하고 유효성 검사 및 Date 타입 변환 작업
+        System.out.println("픽업할 날짜와 시간을 입력해 주세요 예) 2021-02-14");
 
-		Date dayBuy = null;
-		Date dayPickUp = null;
-		int compare = 0;
+        Date dayBuy = null;
+        Date dayPickUp = null;
+        int compare = 0;
 
-		// pickUpDate 형식 검사
-		while (true) {
-			String pickUpDate = scanner.nextLine();
-			if (!datePattern.matcher(pickUpDate).matches()) {
-				System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
-				continue;
-			}
-			try {
-				dayBuy = sdf.parse(buyDate);
-				dayPickUp = sdf.parse(pickUpDate);
-			} catch (Exception e) {
-				e.printStackTrace();
-				scanner = new Scanner(System.in);
-			}
-			compare = dayBuy.compareTo(dayPickUp);
-			if (compare > 0) {
-				System.out.println("날짜가 올바르지 않습니다.");
-				continue;
-			} else {
-				break;
-			}
-		}
+        // pickUpDate 형식 검사
+        while (true) {
+            String pickUpDate = scanner.nextLine();
+            if (!datePattern.matcher(pickUpDate).matches()) {
+                System.out.println("형식이 올바르지 않습니다 예) 2021-02-14");
+                continue;
+            }
+            try {
+                dayBuy = sdf.parse(buyDate);
+                dayPickUp = sdf.parse(pickUpDate);
+            } catch (Exception e) {
+                e.printStackTrace();
+                scanner = new Scanner(System.in);
+            }
+            compare = dayBuy.compareTo(dayPickUp);
+            if (compare > 0) {
+                System.out.println("날짜가 올바르지 않습니다.");
+                continue;
+            } else {
+                break;
+            }
+        }
 
-		// 픽업 default 값 false
-		boolean ReservationStatus = false;
+        // 픽업 default 값 false
+        boolean ReservationStatus = false;
+        Custom custom = new Custom(choiceSheet, choicefreshcream, choiceTopping, choiceCandleNum, fireCracker, priceSum,
+                dayBuy, ReservationStatus, dayPickUp);
+        nowUser.getUserCustom().add(custom);
+        orderUser.add(nowUser);
 
-		nowUser.getUserCustom().add(new Custom(choiceSheet, choicefreshcream, choiceTopping, choiceCandleNum,
-				fireCracker, priceSum, dayBuy, ReservationStatus, dayPickUp));
-		orderUser.add(nowUser);
-	}
+        custom.customCakePrint();
+    }
+
 
 	/**
 	 * 예약정보보기
