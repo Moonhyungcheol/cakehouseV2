@@ -3,8 +3,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -383,9 +383,40 @@ public class CakeCustomShop implements StoreOrderSystem {
 
     @Override
     public void pickUp() {
-        // 픽업하기
-        
-    }
+
+		if (nowUser.getUserCustom().size() == 0) {
+			System.out.println("픽업목록이 없습니다. 목록으로 돌아갑니다.");
+			return;
+		}
+
+		// 픽업하기
+		int index = 0;
+		System.out.println("픽업하실 주문번호를 입력해주세요: ");
+		for (Custom userCustom : nowUser.getUserCustom()) {
+			if (userCustom.isReservationStatus()) {
+				continue;
+			}
+			System.out.print("[" + (++index) + "]");
+			System.out.println(userCustom);
+		}
+		int userChoice = Integer.parseInt(scanner.nextLine());
+		while (userChoice < 1 || userChoice > index) {
+			System.out.println("잘못된 번호입니다. 다시 선택해 주세요.");
+			userChoice = Integer.parseInt(scanner.nextLine());
+		}
+
+		// 날짜체크
+		Date today = Calendar.getInstance().getTime();
+
+		if (today.compareTo(nowUser.getUserCustom().get(userChoice - 1).getPickupDate()) < 0) {
+			System.out.println("아직 픽업하실 수 없습니다.");
+			pickUp();
+			return;
+		}
+
+		nowUser.getUserCustom().get(userChoice - 1).setReservationStatus(true);
+		System.out.println("픽업완료되었습니다.");
+	}
 
     /**
      * 제품추가
@@ -626,9 +657,14 @@ public class CakeCustomShop implements StoreOrderSystem {
      */
     public void start() {
         /**************** TEST CODE ************************/
+    	
+    	UserInfo user = new UserInfo();
+    	user.setId("admin");
+    	user.setPassword("admin");
+    	
         Utils utils = new Utils();
         joinmembership.setJoinUser(utils.load("getJoinUser"));
-
+        joinmembership.addJoinUser(user);
         List<Sheet> sheetlist = utils.load("SheetList.txt");
         List<FreshCream> freshlist = utils.load("FreshCreamList.txt");
         List<Topping> toppinglist = utils.load("ToppingList.txt");
