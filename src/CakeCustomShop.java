@@ -295,7 +295,7 @@ public class CakeCustomShop implements StoreOrderSystem {
                             
                             System.out.println("초의 갯수를 정해주세요");
                             userChoice = Integer.parseInt(scanner.nextLine());
-                            changeCustom.setCandle(userChoice);
+                            userCustom.setCandle(userChoice);
                             break;
                         // continue Loop_1;
 
@@ -304,7 +304,7 @@ public class CakeCustomShop implements StoreOrderSystem {
                             // 폭죽 갯수 변경
                             System.out.println("폭죽의 갯수를 정해주세요");
                             userChoice = Integer.parseInt(scanner.nextLine());
-                            changeCustom.setFireCracker(userChoice);
+                            userCustom.setFireCracker(userChoice);
                             break;
                         // continue Loop_1;
 
@@ -338,7 +338,7 @@ public class CakeCustomShop implements StoreOrderSystem {
                                     break;
                                 }
                             }
-                            changeCustom.setPickupDate(dayPickUp);
+                            userCustom.setPickupDate(dayPickUp);
                             break;
                         // continue Loop_1;
 
